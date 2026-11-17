@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://frontline.local/contracts/v1/source-knowledge.schema.json",
+  "title": "Frontline source knowledge",
+  "$defs": {
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceId",
+        "url",
+        "retrievedAt"
+      ],
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "retrievedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ownerSourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceId",
+        "sourceType",
+        "label",
+        "retrievedAt"
+      ],
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sourceType": {
+          "enum": [
+            "owner_form",
+            "owner_text",
+            "owner_dictation",
+            "owner_document",
+            "owner_url"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "filename": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "retrievedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "classifiedPassage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passageId",
+        "source",
+        "text",
+        "classifications",
+        "classificationModel"
+      ],
+      "properties": {
+        "passageId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/sourceRef"
+            },
+            {
+              "$ref": "#/$defs/ownerSourceRef"
+            }
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 12000
+        },
+        "classifications": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "common.schema.json#/$defs/factGroup"
+              },
+              {
+                "const": "unresolved_conflict"
+              }
+            ]
+          }
+        },
+        "classificationModel": {
+          "type": "string",
+          "enum": [
+            "jev-1.13.0",
+            "owner-attested-v1"
+          ]
+        }
+      }
+    },
+    "eligibleFact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "factId",
+        "group",
+        "value",
+        "passageIds",
+        "applicableServiceIds",
+        "applicableLocationIds",
+        "eligibility",
+        "eligibilityReason",
+        "observedAt",
+        "confidenceEvidence"
+      ],
+      "properties": {
+        "factId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "group": {
+          "$ref": "common.schema.json#/$defs/factGroup"
+        },
+        "value": {
+          "$ref": "common.schema.json#/$defs/jsonValue"
+        },
+        "passageIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "applicableServiceIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "applicableLocationIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "eligibility": {
+          "$ref": "common.schema.json#/$defs/eligibility"
+        },
+        "eligibilityReason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "confidenceEvidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "score",
+            "basis",
+            "explanation"
+          ],
+          "properties": {
+            "score": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "basis": {
+              "enum": [
+                "direct_passage",
+                "corroborated_passages"
+              ]
+            },
+            "explanation": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            }
+          }
+        }
+      }
+    }
+  }
+}

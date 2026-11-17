@@ -1,0 +1,11 @@
+/* Feedback form and receipt (design spec PO-DC11, PO-DC12). Prefix owner-. */
+.owner-field__label{display:block;font:650 14px Inter,Arial,sans-serif;margin-bottom:6px}
+.owner-field__hint{margin:6px 0 0;color:var(--muted);font-size:14px}
+.owner-receipt__head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.owner-receipt__head h2{margin:0}
+.owner-receipt__head h2:focus{outline:none}
+.owner-form-status{margin:12px 0 0;color:var(--muted);font-size:14px}
+.owner-form-note{margin:6px 0 0;color:var(--forest-2);font-size:14px}
+.owner-card--welcome{margin-bottom:24px}
+.owner-welcome-footer{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:8px}
+@media (max-width:520px){.owner-welcome-footer{flex-direction:column;align-items:stretch}}

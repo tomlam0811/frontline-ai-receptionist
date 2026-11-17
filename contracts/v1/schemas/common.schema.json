@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://frontline.local/contracts/v1/common.schema.json",
+  "$defs": {
+    "workflowId": {
+      "enum": [
+        "WF-01",
+        "WF-02",
+        "WF-03",
+        "WF-04",
+        "WF-05",
+        "WF-06"
+      ]
+    },
+    "toolId": {
+      "enum": [
+        "retrieve_facts",
+        "get_service_details",
+        "list_services",
+        "validate_request",
+        "save_request",
+        "lookup_appointment",
+        "save_case",
+        "record_escalation",
+        "end_session"
+      ]
+    },
+    "phase": {
+      "enum": [
+        "interpreting",
+        "collecting",
+        "clarifying",
+        "reading_back",
+        "awaiting_confirmation",
+        "operating",
+        "completed",
+        "ending",
+        "terminal"
+      ]
+    },
+    "factGroup": {
+      "enum": [
+        "identity_contact",
+        "locations_service_area",
+        "services",
+        "office_hours",
+        "service_hours",
+        "appointment_hours",
+        "pricing_quote_policy",
+        "booking_cancellation_policy",
+        "faq",
+        "other"
+      ]
+    },
+    "eligibility": {
+      "enum": [
+        "eligible",
+        "unknown",
+        "stale",
+        "conflicting"
+      ]
+    },
+    "escalationReason": {
+      "enum": [
+        "human_preference",
+        "blocking_unknown",
+        "urgency",
+        "safety_emergency"
+      ]
+    },
+    "terminalReason": {
+      "enum": [
+        "completed",
+        "caller_ended",
+        "human_preference",
+        "blocking_unknown",
+        "urgency",
+        "safety_emergency",
+        "soft_close_elapsed",
+        "hard_end_elapsed",
+        "setup_timeout",
+        "provider_failure"
+      ]
+    },
+    "dialogueAct": {
+      "enum": [
+        "affirm",
+        "negate",
+        "correct",
+        "question",
+        "provide_fields",
+        "request_human",
+        "other"
+      ]
+    },
+    "classificationStatus": {
+      "enum": [
+        "classified",
+        "clarification_required",
+        "unavailable"
+      ]
+    },
+    "sessionStatus": {
+      "enum": [
+        "active",
+        "ending",
+        "terminal"
+      ]
+    },
+    "jsonValue": {
+      "anyOf": [
+        {
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "null"
+          ]
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/jsonValue"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "common.schema.json#/$defs/jsonValue"
+          }
+        }
+      ]
+    }
+  }
+}

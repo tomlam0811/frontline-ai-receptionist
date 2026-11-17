@@ -1,0 +1,16 @@
+/* Share dialog. New classes only, prefixed owner-; tokens come from owner.css. */
+.owner-share-dialog__about{margin:0 0 16px;line-height:1.5}
+.owner-share-dialog__field{margin:0 0 8px}
+.owner-share-dialog__field input{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px}
+.owner-share-dialog__result{margin:0 0 8px;font-weight:650;color:var(--forest)}
+.owner-share-dialog__result--error{color:var(--danger)}
+.owner-share-links{margin-top:20px;border-top:1px solid var(--line, #e6e0d4);padding-top:12px}
+.owner-share-links h3{margin:0 0 4px;font-size:15px}
+.owner-share-links ul{list-style:none;margin:0;padding:0}
+.owner-share-links__row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0}
+.owner-share-links__row+.owner-share-links__row{border-top:1px solid var(--line, #e6e0d4)}
+.owner-share-links__info{display:flex;flex-direction:column;gap:2px;min-width:0}
+.owner-share-links__status{font-weight:650}
+.owner-share-links__info .owner-muted{margin:0;font-size:14px}
+.owner-share-links__confirm{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:8px;font-size:14px}
+.owner-share-links__confirm>span{flex-basis:100%;text-align:right}

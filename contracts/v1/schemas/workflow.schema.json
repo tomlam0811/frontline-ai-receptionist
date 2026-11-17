@@ -1,0 +1,552 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://frontline.local/contracts/v1/workflow.schema.json",
+  "$defs": {
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "workflowInstanceId",
+        "workflowId",
+        "phase",
+        "revision",
+        "allowedToolIds"
+      ],
+      "properties": {
+        "workflowInstanceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "workflowId": {
+          "$ref": "common.schema.json#/$defs/workflowId"
+        },
+        "phase": {
+          "$ref": "common.schema.json#/$defs/phase"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "allowedToolIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "common.schema.json#/$defs/toolId"
+          }
+        },
+        "suspendedWorkflowId": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "event": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "workflowInstanceId",
+            "workflowId",
+            "expectedRevision",
+            "recordedAt",
+            "actor",
+            "eventType",
+            "payload"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowInstanceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowId": {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "actor": {
+              "const": "server"
+            },
+            "eventType": {
+              "const": "caller_turn_recorded"
+            },
+            "payload": {
+              "$ref": "boundary.schema.json#/$defs/finalizedCallerTurn"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "workflowInstanceId",
+            "workflowId",
+            "expectedRevision",
+            "recordedAt",
+            "actor",
+            "eventType",
+            "payload"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowInstanceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowId": {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "actor": {
+              "const": "server"
+            },
+            "eventType": {
+              "const": "intent_classified"
+            },
+            "payload": {
+              "$ref": "boundary.schema.json#/$defs/classification"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "workflowInstanceId",
+            "workflowId",
+            "expectedRevision",
+            "recordedAt",
+            "actor",
+            "eventType",
+            "payload"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowInstanceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowId": {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "actor": {
+              "const": "server"
+            },
+            "eventType": {
+              "const": "fields_revised"
+            },
+            "payload": {
+              "$ref": "boundary.schema.json#/$defs/fieldValidation"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "workflowInstanceId",
+            "workflowId",
+            "expectedRevision",
+            "recordedAt",
+            "actor",
+            "eventType",
+            "payload"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowInstanceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowId": {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "actor": {
+              "const": "server"
+            },
+            "eventType": {
+              "const": "readback_recorded"
+            },
+            "payload": {
+              "$ref": "boundary.schema.json#/$defs/readback"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "workflowInstanceId",
+            "workflowId",
+            "expectedRevision",
+            "recordedAt",
+            "actor",
+            "eventType",
+            "payload"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowInstanceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowId": {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "actor": {
+              "const": "server"
+            },
+            "eventType": {
+              "const": "confirmation_recorded"
+            },
+            "payload": {
+              "$ref": "confirmation.schema.json"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "workflowInstanceId",
+            "workflowId",
+            "expectedRevision",
+            "recordedAt",
+            "actor",
+            "eventType",
+            "payload"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowInstanceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowId": {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "actor": {
+              "const": "server"
+            },
+            "eventType": {
+              "const": "tool_requested"
+            },
+            "payload": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "toolId",
+                "operationId"
+              ],
+              "properties": {
+                "toolId": {
+                  "$ref": "common.schema.json#/$defs/toolId"
+                },
+                "operationId": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "workflowInstanceId",
+            "workflowId",
+            "expectedRevision",
+            "recordedAt",
+            "actor",
+            "eventType",
+            "payload"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowInstanceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowId": {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "actor": {
+              "const": "server"
+            },
+            "eventType": {
+              "const": "tool_completed"
+            },
+            "payload": {
+              "$ref": "receipt.schema.json"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "workflowInstanceId",
+            "workflowId",
+            "expectedRevision",
+            "recordedAt",
+            "actor",
+            "eventType",
+            "payload"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowInstanceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowId": {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "actor": {
+              "const": "server"
+            },
+            "eventType": {
+              "const": "tool_failed"
+            },
+            "payload": {
+              "$ref": "receipt.schema.json"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "workflowInstanceId",
+            "workflowId",
+            "expectedRevision",
+            "recordedAt",
+            "actor",
+            "eventType",
+            "payload"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowInstanceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowId": {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "actor": {
+              "const": "server"
+            },
+            "eventType": {
+              "const": "escalation_detected"
+            },
+            "payload": {
+              "$ref": "boundary.schema.json#/$defs/escalationInput"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "workflowInstanceId",
+            "workflowId",
+            "expectedRevision",
+            "recordedAt",
+            "actor",
+            "eventType",
+            "payload"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowInstanceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowId": {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "actor": {
+              "const": "server"
+            },
+            "eventType": {
+              "const": "ending_started"
+            },
+            "payload": {
+              "$ref": "boundary.schema.json#/$defs/endingSession"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "eventId",
+            "workflowInstanceId",
+            "workflowId",
+            "expectedRevision",
+            "recordedAt",
+            "actor",
+            "eventType",
+            "payload"
+          ],
+          "properties": {
+            "eventId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowInstanceId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "workflowId": {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            "expectedRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "recordedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "actor": {
+              "const": "server"
+            },
+            "eventType": {
+              "const": "session_terminated"
+            },
+            "payload": {
+              "$ref": "session-terminal.schema.json"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+/* Bob detail and capabilities (design spec PO-S9). Only existing tokens; every class is prefixed owner-. */
+.owner-identity{padding:20px}
+.owner-identity__top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.owner-identity h1{color:var(--ink);margin:0 0 2px;font-size:26px}
+.owner-identity__body{min-width:0}
+.owner-identity__name{margin:0 0 2px;font:600 22px 'Inter',Inter,Arial,sans-serif}
+.owner-identity__business{margin:0;font-size:16px;color:var(--muted);overflow-wrap:anywhere}
+.owner-identity__body .owner-chips{margin:8px 0 0}
+.owner-identity__talk{margin-top:16px}
+.owner-identity .owner-muted{margin:8px 0 0}
+.owner-bob{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px 24px;align-items:start}
+.owner-bob__side,.owner-bob__main{display:grid;gap:12px;min-width:0}
+.owner-bob .owner-card,.owner-bob .owner-link-card,.owner-bob .owner-notice{margin:0}
+.owner-cap-list>li{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:16px 0}
+.owner-cap-row__text{max-width:560px}
+.owner-cap-row__text p{margin:2px 0 0;line-height:1.5}
+.owner-cap-row__text strong{font:600 16px 'Inter',Inter,Arial,sans-serif}
+.owner-cap-request{margin:16px 0 0}
+.owner-cap-soon{margin:48px 0 8px!important}
+.owner-cap-row--soon{color:var(--muted)}
+.owner-cap-row--soon strong{font-weight:600;color:var(--muted)}
+.owner-switch{flex:none;display:inline-flex;align-items:center;gap:10px;min-height:44px;cursor:pointer;position:relative}
+.owner-switch input{position:absolute;opacity:0;width:52px;height:44px;margin:0;cursor:pointer}
+.owner-switch__track{width:44px;height:26px;border-radius:999px;background:#cdd8d3;position:relative;transition:background .15s}
+.owner-switch__thumb{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .15s}
+.owner-switch input:checked+.owner-switch__track{background:var(--forest)}
+.owner-switch input:checked+.owner-switch__track .owner-switch__thumb{transform:translateX(18px)}
+.owner-switch input:focus-visible+.owner-switch__track{outline:3px solid rgba(31,77,58,.35);outline-offset:3px}
+.owner-switch input:disabled+.owner-switch__track{opacity:.6}
+.owner-switch__text{font:650 14px Inter,Arial,sans-serif;min-width:28px}
+.owner-applied{background:var(--mint-2);border:1px solid var(--mint);border-radius:16px;padding:20px 24px;margin:0 0 20px}
+.owner-applied h2{margin:0 0 12px}
+.owner-applied h2:focus{outline:none}
+.owner-conflict h2{font-size:18px;margin:0}
+@media (max-width:820px){.owner-bob{grid-template-columns:1fr}}
+@media (max-width:520px){
+  .owner-cap-list>li{flex-direction:column;align-items:flex-start;gap:10px}
+}

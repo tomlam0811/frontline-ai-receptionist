@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://frontline.local/contracts/v1/receipt.schema.json",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiptId",
+        "operationId",
+        "operationKind",
+        "payloadHash",
+        "workflowInstanceId",
+        "workflowRevision",
+        "recordedAt",
+        "sequence",
+        "outcome",
+        "recordId"
+      ],
+      "properties": {
+        "receiptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "operationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "operationKind": {
+          "enum": [
+            "request",
+            "case",
+            "escalation"
+          ]
+        },
+        "payloadHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "workflowInstanceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "workflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "outcome": {
+          "const": "saved"
+        },
+        "recordId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receiptId",
+        "operationId",
+        "operationKind",
+        "payloadHash",
+        "workflowInstanceId",
+        "workflowRevision",
+        "recordedAt",
+        "sequence",
+        "outcome",
+        "failureCode"
+      ],
+      "properties": {
+        "receiptId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "operationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "operationKind": {
+          "enum": [
+            "request",
+            "case",
+            "escalation"
+          ]
+        },
+        "payloadHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "workflowInstanceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "workflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "outcome": {
+          "const": "failed"
+        },
+        "failureCode": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        }
+      }
+    }
+  ]
+}

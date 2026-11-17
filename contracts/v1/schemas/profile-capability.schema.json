@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://frontline.local/contracts/v1/profile-capability.schema.json",
+  "title": "Frontline grouped profile and capability revision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profileRevisionId",
+    "knowledgeRevisionId",
+    "businessId",
+    "createdAt",
+    "groups",
+    "capabilities",
+    "sourcePassageIds"
+  ],
+  "properties": {
+    "profileRevisionId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "knowledgeRevisionId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "businessId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "groups": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identityContact",
+        "locationsServiceArea",
+        "services",
+        "officeHours",
+        "serviceHours",
+        "appointmentHours",
+        "pricingQuotePolicy",
+        "bookingCancellationPolicy",
+        "faqs",
+        "unresolvedConflicts"
+      ],
+      "properties": {
+        "identityContact": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "locationsServiceArea": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "officeHours": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "serviceHours": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "appointmentHours": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "pricingQuotePolicy": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "bookingCancellationPolicy": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "faqs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "unresolvedConflicts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "workflowId",
+          "enabled",
+          "allowedToolIds"
+        ],
+        "properties": {
+          "workflowId": {
+            "$ref": "common.schema.json#/$defs/workflowId"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "allowedToolIds": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "$ref": "common.schema.json#/$defs/toolId"
+            }
+          }
+        }
+      }
+    },
+    "sourcePassageIds": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    }
+  }
+}

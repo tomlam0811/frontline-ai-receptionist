@@ -1,0 +1,3614 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://frontline.local/contracts/v1/post-onboarding.schema.json",
+  "$defs": {
+    "entryGroup": {
+      "enum": [
+        "identity_contact",
+        "locations_service_area",
+        "services",
+        "office_hours",
+        "service_hours",
+        "appointment_hours",
+        "pricing_quote_policy",
+        "booking_cancellation_policy",
+        "faq",
+        "other"
+      ]
+    },
+    "knowledgeCategoryName": {
+      "enum": [
+        "business_details",
+        "services",
+        "hours",
+        "locations_service_area",
+        "pricing",
+        "policies",
+        "faqs",
+        "other"
+      ]
+    },
+    "workflowToggleId": {
+      "enum": [
+        "WF-02",
+        "WF-03",
+        "WF-04",
+        "WF-05"
+      ]
+    },
+    "problemResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "title",
+        "detail",
+        "status"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "minimum": 400,
+          "maximum": 599
+        },
+        "reason": {
+          "type": "string"
+        },
+        "currentPointerGeneration": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "currentAgentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "pagedQuery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "cursor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        }
+      }
+    },
+    "conversationSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "demoId",
+        "mode",
+        "endedAt",
+        "callerTurnCount",
+        "callerExcerpts",
+        "tasks"
+      ],
+      "properties": {
+        "demoId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "mode": {
+          "enum": [
+            "business_demo",
+            "frontline_qa",
+            "owner_test",
+            "shared_guest"
+          ]
+        },
+        "endedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "callerTurnCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "callerExcerpts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 160
+          },
+          "maxItems": 3
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "boundary.schema.json#/$defs/callTaskSummary"
+          },
+          "maxItems": 10
+        }
+      }
+    },
+    "ownerAgentSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stableAgentId",
+        "kind",
+        "name",
+        "status",
+        "needsKnowledge",
+        "businessName",
+        "currentAgentVersionId",
+        "versionNumber",
+        "pointerGeneration",
+        "knowledgeState",
+        "lastTestedAt",
+        "currentVersionTestedAt",
+        "ownerReviewedAt",
+        "untestedChanges",
+        "ready",
+        "voiceAvailable",
+        "firstVisit"
+      ],
+      "properties": {
+        "stableAgentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "kind": {
+          "const": "agent"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "status": {
+          "enum": [
+            "active",
+            "paused",
+            "deleting"
+          ]
+        },
+        "needsKnowledge": {
+          "type": "boolean"
+        },
+        "businessName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "currentAgentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "versionNumber": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pointerGeneration": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "knowledgeState": {
+          "enum": [
+            "ready",
+            "processing",
+            "untested_changes",
+            "unavailable"
+          ]
+        },
+        "lastTestedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "currentVersionTestedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ownerReviewedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "untestedChanges": {
+          "type": "boolean"
+        },
+        "ready": {
+          "type": "boolean"
+        },
+        "voiceAvailable": {
+          "type": "boolean"
+        },
+        "firstVisit": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "seen",
+            "outcome"
+          ],
+          "properties": {
+            "seen": {
+              "type": "boolean"
+            },
+            "outcome": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "skipped",
+                    "continued"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "unfinishedWorkspaceEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stableAgentId",
+        "kind",
+        "businessName",
+        "currentAgentVersionId",
+        "knowledgeState",
+        "lastTestedAt",
+        "ownerReviewedAt",
+        "untestedChanges"
+      ],
+      "properties": {
+        "stableAgentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "kind": {
+          "const": "workspace"
+        },
+        "businessName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "currentAgentVersionId": {
+          "type": "null"
+        },
+        "knowledgeState": {
+          "const": "unavailable"
+        },
+        "lastTestedAt": {
+          "type": "null"
+        },
+        "ownerReviewedAt": {
+          "type": "null"
+        },
+        "untestedChanges": {
+          "const": false
+        }
+      }
+    },
+    "meAgentsResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agents"
+      ],
+      "properties": {
+        "agents": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/ownerAgentSummary"
+              },
+              {
+                "$ref": "#/$defs/unfinishedWorkspaceEntry"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "agentSummaryResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stableAgentId",
+        "kind",
+        "name",
+        "status",
+        "needsKnowledge",
+        "businessName",
+        "currentAgentVersionId",
+        "versionNumber",
+        "pointerGeneration",
+        "knowledgeState",
+        "lastTestedAt",
+        "currentVersionTestedAt",
+        "ownerReviewedAt",
+        "untestedChanges",
+        "ready",
+        "voiceAvailable",
+        "firstVisit",
+        "knownVersionIds"
+      ],
+      "properties": {
+        "stableAgentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "kind": {
+          "const": "agent"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "status": {
+          "enum": [
+            "active",
+            "paused",
+            "deleting"
+          ]
+        },
+        "needsKnowledge": {
+          "type": "boolean"
+        },
+        "businessName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "currentAgentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "versionNumber": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pointerGeneration": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "knowledgeState": {
+          "enum": [
+            "ready",
+            "processing",
+            "untested_changes",
+            "unavailable"
+          ]
+        },
+        "lastTestedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "currentVersionTestedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ownerReviewedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "untestedChanges": {
+          "type": "boolean"
+        },
+        "ready": {
+          "type": "boolean"
+        },
+        "voiceAvailable": {
+          "type": "boolean"
+        },
+        "firstVisit": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "seen",
+            "outcome"
+          ],
+          "properties": {
+            "seen": {
+              "type": "boolean"
+            },
+            "outcome": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "skipped",
+                    "continued"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        "knownVersionIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "firstVisitInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "outcome"
+      ],
+      "properties": {
+        "outcome": {
+          "enum": [
+            "skipped",
+            "continued"
+          ]
+        }
+      }
+    },
+    "firstVisitResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seen",
+        "outcome"
+      ],
+      "properties": {
+        "seen": {
+          "const": true
+        },
+        "outcome": {
+          "enum": [
+            "skipped",
+            "continued"
+          ]
+        }
+      }
+    },
+    "renameInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 200
+        }
+      }
+    },
+    "renameResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stableAgentId",
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30
+        },
+        "stableAgentId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "createReceptionistInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "siblingAgentId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "accountDeletionResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "deleted"
+          ]
+        }
+      }
+    },
+    "agentStatusResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stableAgentId",
+        "status"
+      ],
+      "properties": {
+        "stableAgentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "paused",
+            "deleting"
+          ]
+        },
+        "linksRevoked": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "knowledgeEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entryId",
+        "category",
+        "group",
+        "value",
+        "scope",
+        "locationKey",
+        "origin",
+        "sourceId",
+        "state",
+        "attestation",
+        "supersedesEntryId",
+        "conflictWithEntryIds",
+        "createdAt",
+        "updatedAt",
+        "version",
+        "sourceLabel",
+        "sourceExcerpt",
+        "sourceUrl",
+        "sourceFilename",
+        "sourceErased",
+        "hasConflict"
+      ],
+      "properties": {
+        "entryId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "$ref": "#/$defs/knowledgeCategoryName"
+        },
+        "group": {
+          "$ref": "#/$defs/entryGroup"
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "scope": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "locationKey": {
+          "type": "string"
+        },
+        "origin": {
+          "enum": [
+            "website",
+            "owner_form",
+            "owner_text",
+            "owner_dictation",
+            "owner_document",
+            "owner_url"
+          ]
+        },
+        "sourceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "state": {
+          "enum": [
+            "active",
+            "retracted"
+          ]
+        },
+        "attestation": {
+          "enum": [
+            "website",
+            "owner"
+          ]
+        },
+        "supersedesEntryId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "conflictWithEntryIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sourceLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceExcerpt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceUrl": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceFilename": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceErased": {
+          "type": "boolean"
+        },
+        "hasConflict": {
+          "type": "boolean"
+        }
+      }
+    },
+    "notUsedFact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entryId",
+        "category",
+        "group",
+        "value",
+        "eligibilityReason",
+        "origin"
+      ],
+      "properties": {
+        "entryId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "$ref": "#/$defs/knowledgeCategoryName"
+        },
+        "group": {
+          "$ref": "#/$defs/entryGroup"
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "eligibilityReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "origin": {
+          "const": "website"
+        }
+      }
+    },
+    "knowledgeSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceId",
+        "type",
+        "label",
+        "excerpt",
+        "url",
+        "filename",
+        "addedAt",
+        "erasedAt",
+        "usedBy"
+      ],
+      "properties": {
+        "origin": {
+          "const": "onboarding_website"
+        },
+        "usedBy": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "stableAgentId",
+              "name"
+            ],
+            "properties": {
+              "stableAgentId": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "sourceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "website",
+            "owner_form",
+            "owner_text",
+            "owner_dictation",
+            "owner_document",
+            "owner_url"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "excerpt": {
+          "type": "string",
+          "maxLength": 600
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filename": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 200
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "addedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "erasedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "knowledgeCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidateId",
+        "action",
+        "targetEntryId",
+        "group",
+        "value",
+        "scope",
+        "sourceId",
+        "quote",
+        "flags",
+        "decision",
+        "editedValue",
+        "conflictEntryIds"
+      ],
+      "properties": {
+        "candidateId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "enum": [
+            "add",
+            "replace",
+            "remove"
+          ]
+        },
+        "targetEntryId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "group": {
+          "$ref": "#/$defs/entryGroup"
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "scope": {
+          "type": "string",
+          "maxLength": 200
+        },
+        "sourceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quote": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "flags": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "conflicts_with_active",
+              "previously_removed",
+              "duplicate",
+              "model_uncertain"
+            ]
+          }
+        },
+        "decision": {
+          "enum": [
+            "pending",
+            "accept",
+            "reject",
+            "edited"
+          ]
+        },
+        "editedValue": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 1000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "conflictEntryIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "knowledgeUpdate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "updateId",
+        "inputType",
+        "state",
+        "version",
+        "baseAgentVersionId",
+        "basePointerGeneration",
+        "candidates",
+        "failureCode",
+        "appliedAgentVersionId",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "updateId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inputType": {
+          "enum": [
+            "form",
+            "text",
+            "dictation",
+            "document",
+            "url"
+          ]
+        },
+        "state": {
+          "enum": [
+            "received",
+            "extracting",
+            "needs_confirmation",
+            "review",
+            "applying",
+            "applied",
+            "failed",
+            "cancelled",
+            "conflict"
+          ]
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "baseAgentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "basePointerGeneration": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/knowledgeCandidate"
+          },
+          "maxItems": 100
+        },
+        "failureCode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "appliedAgentVersionId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "knowledgeView": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stableAgentId",
+        "currentAgentVersionId",
+        "pointerGeneration",
+        "sourceIds",
+        "inputs",
+        "categories",
+        "sources",
+        "openUpdates"
+      ],
+      "properties": {
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "stableAgentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "currentAgentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "pointerGeneration": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "inputs": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "form",
+            "text",
+            "dictation",
+            "document",
+            "url"
+          ],
+          "properties": {
+            "form": {
+              "type": "boolean"
+            },
+            "text": {
+              "type": "boolean"
+            },
+            "dictation": {
+              "type": "boolean"
+            },
+            "document": {
+              "type": "boolean"
+            },
+            "url": {
+              "type": "boolean"
+            }
+          }
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "category",
+              "label",
+              "entries",
+              "notUsedByBob"
+            ],
+            "properties": {
+              "category": {
+                "$ref": "#/$defs/knowledgeCategoryName"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "entries": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/knowledgeEntry"
+                }
+              },
+              "notUsedByBob": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/notUsedFact"
+                }
+              }
+            }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/knowledgeSource"
+          }
+        },
+        "openUpdates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/knowledgeUpdate"
+          }
+        },
+        "sourceErasures": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceErasureJob"
+          }
+        }
+      }
+    },
+    "knowledgeUpdateResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "update"
+      ],
+      "properties": {
+        "update": {
+          "$ref": "#/$defs/knowledgeUpdate"
+        }
+      }
+    },
+    "knowledgeUpdateInput": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "inputType",
+            "baseAgentVersionId",
+            "expectedPointerGeneration",
+            "op",
+            "group"
+          ],
+          "properties": {
+            "inputType": {
+              "const": "form"
+            },
+            "baseAgentVersionId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "expectedPointerGeneration": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "op": {
+              "enum": [
+                "add",
+                "replace",
+                "remove"
+              ]
+            },
+            "group": {
+              "$ref": "#/$defs/entryGroup"
+            },
+            "value": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "scope": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "targetEntryId": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "inputType",
+            "baseAgentVersionId",
+            "expectedPointerGeneration",
+            "text"
+          ],
+          "properties": {
+            "inputType": {
+              "const": "text"
+            },
+            "baseAgentVersionId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "expectedPointerGeneration": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "inputType",
+            "baseAgentVersionId",
+            "expectedPointerGeneration",
+            "text"
+          ],
+          "properties": {
+            "inputType": {
+              "const": "dictation"
+            },
+            "baseAgentVersionId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "expectedPointerGeneration": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000
+            },
+            "uploadHandle": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "inputType",
+            "baseAgentVersionId",
+            "expectedPointerGeneration",
+            "uploadHandle"
+          ],
+          "properties": {
+            "inputType": {
+              "const": "document"
+            },
+            "baseAgentVersionId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "expectedPointerGeneration": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "uploadHandle": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "inputType",
+            "baseAgentVersionId",
+            "expectedPointerGeneration",
+            "url"
+          ],
+          "properties": {
+            "inputType": {
+              "const": "url"
+            },
+            "baseAgentVersionId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "expectedPointerGeneration": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000
+            }
+          }
+        }
+      ]
+    },
+    "knowledgeUpdateApplyInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedVersion",
+        "decisions"
+      ],
+      "properties": {
+        "expectedVersion": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "candidateId",
+              "decision"
+            ],
+            "properties": {
+              "candidateId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "decision": {
+                "enum": [
+                  "accept",
+                  "reject",
+                  "edited"
+                ]
+              },
+              "editedValue": {
+                "type": "string",
+                "maxLength": 1000
+              }
+            }
+          },
+          "maxItems": 100
+        }
+      }
+    },
+    "knowledgeUpdateCancelInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedVersion"
+      ],
+      "properties": {
+        "expectedVersion": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "knowledgeSelectionInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceIds",
+        "expectedAgentVersionId"
+      ],
+      "properties": {
+        "sourceIds": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "expectedAgentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "knowledgeSelectionResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stableAgentId",
+        "currentAgentVersionId",
+        "pointerGeneration",
+        "versionNumber",
+        "sourceIds"
+      ],
+      "properties": {
+        "stableAgentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "currentAgentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "pointerGeneration": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "versionNumber": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "sourceErasureInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "confirm",
+        "expectedPointerGeneration"
+      ],
+      "properties": {
+        "confirm": {
+          "const": true
+        },
+        "expectedPointerGeneration": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "sourceErasureJob": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "jobId",
+        "sourceId",
+        "sourceType",
+        "status",
+        "requestedAt",
+        "updatedAt",
+        "completedAt",
+        "failureCode",
+        "retryable",
+        "versionsAffected",
+        "linksRevoked",
+        "remainingKnowledge",
+        "backups"
+      ],
+      "properties": {
+        "jobId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sourceId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "completed",
+            "failed"
+          ]
+        },
+        "requestedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "failureCode": {
+          "enum": [
+            "sessions_not_ended",
+            "store_cleanup_failed",
+            "cleanup_failed",
+            null
+          ]
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "versionsAffected": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "linksRevoked": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "remainingKnowledge": {
+          "enum": [
+            "recompiled",
+            "unchanged",
+            "needs_information",
+            null
+          ]
+        },
+        "backups": {
+          "const": "expire_separately"
+        }
+      }
+    },
+    "workflowView": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "workflowId",
+        "enabled",
+        "required",
+        "note"
+      ],
+      "properties": {
+        "workflowId": {
+          "$ref": "common.schema.json#/$defs/workflowId"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "capabilitiesResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stableAgentId",
+        "currentAgentVersionId",
+        "pointerGeneration",
+        "workflows"
+      ],
+      "properties": {
+        "stableAgentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "currentAgentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "pointerGeneration": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "workflows": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/workflowView"
+          },
+          "minItems": 6,
+          "maxItems": 6
+        }
+      }
+    },
+    "capabilitiesSaveInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "baseAgentVersionId",
+        "expectedPointerGeneration",
+        "workflows"
+      ],
+      "properties": {
+        "baseAgentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "expectedPointerGeneration": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "workflows": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {
+            "WF-01": {
+              "const": true
+            },
+            "WF-02": {
+              "type": "boolean"
+            },
+            "WF-03": {
+              "type": "boolean"
+            },
+            "WF-04": {
+              "type": "boolean"
+            },
+            "WF-05": {
+              "type": "boolean"
+            },
+            "WF-06": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    "versionReviewInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedPointerGeneration"
+      ],
+      "properties": {
+        "expectedPointerGeneration": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "versionReviewResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agentVersionId",
+        "ownerReviewedAt"
+      ],
+      "properties": {
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "ownerReviewedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ownerTestStartInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedAgentVersionId"
+      ],
+      "properties": {
+        "expectedAgentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "ownerTestStartResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "demoId",
+        "livekitUrl",
+        "participantToken",
+        "tokenExpiresAt",
+        "setupDeadlineAt",
+        "agentVersionId",
+        "mode"
+      ],
+      "properties": {
+        "demoId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "livekitUrl": {
+          "type": "string",
+          "minLength": 1
+        },
+        "participantToken": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "setupDeadlineAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "mode": {
+          "const": "owner_test"
+        }
+      }
+    },
+    "ownerTestResultResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "demoId",
+        "state",
+        "mode",
+        "agentVersionId",
+        "versionNumber",
+        "closingPolicy",
+        "setupDeadlineAt",
+        "startedAt",
+        "softCloseAt",
+        "hardEndAt",
+        "terminalReason",
+        "reconnectAllowed",
+        "expiresAt",
+        "requests",
+        "cases",
+        "callSummary"
+      ],
+      "properties": {
+        "demoId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "state": {
+          "enum": [
+            "dispatching",
+            "waiting",
+            "active",
+            "ending",
+            "ended",
+            "failed"
+          ]
+        },
+        "mode": {
+          "const": "owner_test"
+        },
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "versionNumber": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "closingPolicy": {
+          "const": "test_summary"
+        },
+        "setupDeadlineAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "softCloseAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hardEndAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "terminalReason": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/terminalReason"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reconnectAllowed": {
+          "type": "boolean"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "requests": {
+          "type": "array",
+          "items": {
+            "$ref": "boundary.schema.json#/$defs/requestRecord"
+          }
+        },
+        "cases": {
+          "type": "array",
+          "items": {
+            "$ref": "boundary.schema.json#/$defs/caseRecord"
+          }
+        },
+        "callSummary": {
+          "$ref": "#/$defs/conversationSummary"
+        }
+      }
+    },
+    "ownerTestEndResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "state"
+      ],
+      "properties": {
+        "state": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "conversationItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conversationId",
+        "origin",
+        "startedAt",
+        "endedAt",
+        "durationSeconds",
+        "state",
+        "terminalReason",
+        "agentVersionId",
+        "versionLabel",
+        "hasBobTranscript",
+        "requestLeftOpen"
+      ],
+      "properties": {
+        "conversationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "origin": {
+          "enum": [
+            "trial",
+            "owner_test",
+            "shared"
+          ]
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "durationSeconds": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "terminalReason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "versionLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hasBobTranscript": {
+          "type": "boolean"
+        },
+        "requestLeftOpen": {
+          "type": "boolean"
+        }
+      }
+    },
+    "conversationListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conversations",
+        "nextCursor"
+      ],
+      "properties": {
+        "conversations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conversationItem"
+          },
+          "maxItems": 100
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "transcriptEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seq",
+        "speaker",
+        "text",
+        "at"
+      ],
+      "properties": {
+        "seq": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "speaker": {
+          "enum": [
+            "caller",
+            "bob"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "interrupted": {
+          "const": true
+        }
+      }
+    },
+    "outcomeReviewInput": {
+      "description": "VA-D13: mark a Needs review note done, or undo that.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewStatus"],
+      "properties": { "reviewStatus": { "enum": ["done", "needs_review"] } }
+    },
+    "outcomeReviewResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record"],
+      "properties": {
+        "record": { "anyOf": [{ "$ref": "boundary.schema.json#/$defs/requestRecord" }, { "$ref": "boundary.schema.json#/$defs/caseRecord" }] }
+      }
+    },
+    "conversationDetailResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conversationId",
+        "origin",
+        "startedAt",
+        "endedAt",
+        "durationSeconds",
+        "state",
+        "terminalReason",
+        "agentVersionId",
+        "versionLabel",
+        "hasBobTranscript",
+        "requestLeftOpen",
+        "summary",
+        "recap",
+        "outcomes",
+        "transcript",
+        "transcriptNotice"
+      ],
+      "properties": {
+        "conversationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "origin": {
+          "enum": [
+            "trial",
+            "owner_test",
+            "shared"
+          ]
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "durationSeconds": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "terminalReason": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "versionLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hasBobTranscript": {
+          "type": "boolean"
+        },
+        "requestLeftOpen": {
+          "type": "boolean"
+        },
+        "summary": {
+          "$ref": "#/$defs/conversationSummary"
+        },
+        "recap": {
+          "anyOf": [
+            { "type": "string", "minLength": 1, "maxLength": 600 },
+            { "type": "null" }
+          ]
+        },
+        "outcomes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "requests",
+            "cases"
+          ],
+          "properties": {
+            "requests": {
+              "type": "array",
+              "items": {
+                "$ref": "boundary.schema.json#/$defs/requestRecord"
+              }
+            },
+            "cases": {
+              "type": "array",
+              "items": {
+                "$ref": "boundary.schema.json#/$defs/caseRecord"
+              }
+            }
+          }
+        },
+        "transcript": {
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/transcriptEntry"
+              },
+              "maxItems": 400
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "transcriptNotice": {
+          "anyOf": [
+            {
+              "enum": [
+                "bob_side_not_recorded",
+                "partial"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "feedbackInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "inputMethod",
+        "text"
+      ],
+      "properties": {
+        "category": {
+          "enum": [
+            "business_context",
+            "quality",
+            "functionality",
+            "other"
+          ]
+        },
+        "inputMethod": {
+          "enum": [
+            "text",
+            "dictation"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+        "originalTranscript": {
+          "type": "string",
+          "maxLength": 10000
+        },
+        "conversationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "feedbackReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "feedbackId",
+        "receivedAt",
+        "category",
+        "status"
+      ],
+      "properties": {
+        "feedbackId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "receivedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "category": {
+          "enum": [
+            "business_context",
+            "quality",
+            "functionality",
+            "other"
+          ]
+        },
+        "status": {
+          "const": "new"
+        }
+      }
+    },
+    "shareCreateInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedAgentVersionId"
+      ],
+      "properties": {
+        "expectedAgentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "shareCreateResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shareId",
+        "url",
+        "status",
+        "expiresAt",
+        "agentVersionId"
+      ],
+      "properties": {
+        "shareId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "unused",
+            "reserved",
+            "active",
+            "consumed",
+            "expired",
+            "revoked"
+          ]
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "shareItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shareId",
+        "status",
+        "agentVersionId",
+        "versionLabel",
+        "isCurrentVersion",
+        "createdAt",
+        "expiresAt",
+        "activatedAt",
+        "consumedAt",
+        "revokedAt",
+        "version"
+      ],
+      "properties": {
+        "shareId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "enum": [
+            "unused",
+            "reserved",
+            "active",
+            "consumed",
+            "expired",
+            "revoked"
+          ]
+        },
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "versionLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "isCurrentVersion": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "activatedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "consumedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "revokedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "shareListResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shares"
+      ],
+      "properties": {
+        "shares": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/shareItem"
+          }
+        }
+      }
+    },
+    "shareRevokeQuery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedVersion"
+      ],
+      "properties": {
+        "expectedVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 9,
+          "pattern": "^[0-9]+$"
+        }
+      }
+    },
+    "shareRevokeResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shareId",
+        "status"
+      ],
+      "properties": {
+        "shareId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "const": "revoked"
+        }
+      }
+    },
+    "guestExchangeInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "token"
+      ],
+      "properties": {
+        "token": {
+          "type": "string",
+          "minLength": 43,
+          "maxLength": 43,
+          "pattern": "^[A-Za-z0-9_-]{43}$"
+        }
+      }
+    },
+    "guestExchangeResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "businessName",
+        "receptionistName",
+        "agentIdentity",
+        "limits",
+        "disclosure"
+      ],
+      "properties": {
+        "available": {
+          "const": true
+        },
+        "businessName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "receptionistName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agentIdentity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "maxSeconds",
+            "browserOnly"
+          ],
+          "properties": {
+            "maxSeconds": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "browserOnly": {
+              "const": true
+            }
+          }
+        },
+        "disclosure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ownerCanReview",
+            "builderMayReviewFeedback"
+          ],
+          "properties": {
+            "ownerCanReview": {
+              "const": true
+            },
+            "builderMayReviewFeedback": {
+              "const": true
+            }
+          }
+        }
+      }
+    },
+    "guestEmptyInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "guestDemo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "demoId",
+        "mode",
+        "state",
+        "terminalReason",
+        "setupDeadlineAt",
+        "startedAt",
+        "softCloseAt",
+        "hardEndAt"
+      ],
+      "properties": {
+        "demoId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "mode": {
+          "const": "shared_guest"
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "terminalReason": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/terminalReason"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "setupDeadlineAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "softCloseAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hardEndAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "guestSessionResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "linkStatus",
+        "demo"
+      ],
+      "properties": {
+        "linkStatus": {
+          "enum": [
+            "unused",
+            "reserved",
+            "active",
+            "consumed",
+            "expired",
+            "revoked"
+          ]
+        },
+        "demo": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/guestDemo"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "link": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "businessName",
+            "receptionistName",
+            "agentIdentity",
+            "limits",
+            "disclosure"
+          ],
+          "properties": {
+            "businessName": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "receptionistName": {
+              "type": "string",
+              "minLength": 1
+            },
+            "agentIdentity": {
+              "type": "string",
+              "minLength": 1
+            },
+            "limits": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "maxSeconds",
+                "browserOnly"
+              ],
+              "properties": {
+                "maxSeconds": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "browserOnly": {
+                  "const": true
+                }
+              }
+            },
+            "disclosure": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "ownerCanReview",
+                "builderMayReviewFeedback"
+              ],
+              "properties": {
+                "ownerCanReview": {
+                  "const": true
+                },
+                "builderMayReviewFeedback": {
+                  "const": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "guestStartResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "livekitUrl",
+        "participantToken",
+        "tokenExpiresAt",
+        "setupDeadlineAt"
+      ],
+      "properties": {
+        "demoId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "livekitUrl": {
+          "type": "string",
+          "minLength": 1
+        },
+        "participantToken": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "setupDeadlineAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "guestReconnectResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "demoId",
+        "livekitUrl",
+        "participantToken",
+        "tokenExpiresAt",
+        "hardEndAt",
+        "setupDeadlineAt"
+      ],
+      "properties": {
+        "demoId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "livekitUrl": {
+          "type": "string",
+          "minLength": 1
+        },
+        "participantToken": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "hardEndAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "setupDeadlineAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "guestEndResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "state"
+      ],
+      "properties": {
+        "state": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "guestResultResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "demoId",
+        "mode",
+        "state",
+        "terminalReason",
+        "setupDeadlineAt",
+        "startedAt",
+        "softCloseAt",
+        "hardEndAt",
+        "linkStatus",
+        "callSummary",
+        "feedbackClosesAt",
+        "feedbackOpen"
+      ],
+      "properties": {
+        "demoId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "mode": {
+          "const": "shared_guest"
+        },
+        "state": {
+          "type": "string",
+          "minLength": 1
+        },
+        "terminalReason": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/terminalReason"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "setupDeadlineAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startedAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "softCloseAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hardEndAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "linkStatus": {
+          "enum": [
+            "unused",
+            "reserved",
+            "active",
+            "consumed",
+            "expired",
+            "revoked"
+          ]
+        },
+        "callSummary": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/conversationSummary"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "feedbackClosesAt": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "feedbackOpen": {
+          "type": "boolean"
+        }
+      }
+    },
+    "builderFeedbackQuery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "q": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "category": {
+          "enum": [
+            "business_context",
+            "quality",
+            "functionality",
+            "other"
+          ]
+        },
+        "agentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "conversationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "source": {
+          "enum": [
+            "owner",
+            "guest"
+          ]
+        },
+        "status": {
+          "enum": [
+            "new",
+            "reviewed",
+            "resolved"
+          ]
+        },
+        "since": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "cursor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "limit": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 3
+        }
+      }
+    },
+    "builderFeedbackRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "id",
+        "createdAt",
+        "updatedAt",
+        "source",
+        "inputMethod",
+        "category",
+        "submittedText",
+        "originalTranscript",
+        "agentId",
+        "agentVersionId",
+        "conversationId",
+        "linkedKnowledgeUpdateId",
+        "status",
+        "revision",
+        "derivedSummary"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "owner",
+            "guest"
+          ]
+        },
+        "inputMethod": {
+          "enum": [
+            "text",
+            "dictation"
+          ]
+        },
+        "category": {
+          "enum": [
+            "business_context",
+            "quality",
+            "functionality",
+            "other"
+          ]
+        },
+        "submittedText": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+        "originalTranscript": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 10000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "agentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "conversationId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "linkedKnowledgeUpdateId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "new",
+            "reviewed",
+            "resolved"
+          ]
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "derivedSummary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "builderFeedbackEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "at",
+        "action",
+        "actorKind",
+        "fromStatus",
+        "toStatus"
+      ],
+      "properties": {
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "action": {
+          "enum": [
+            "submitted",
+            "status_changed"
+          ]
+        },
+        "actorKind": {
+          "enum": [
+            "owner",
+            "guest_session",
+            "builder"
+          ]
+        },
+        "fromStatus": {
+          "anyOf": [
+            {
+              "enum": [
+                "new",
+                "reviewed",
+                "resolved"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "toStatus": {
+          "anyOf": [
+            {
+              "enum": [
+                "new",
+                "reviewed",
+                "resolved"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "builderFeedbackDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "id",
+        "createdAt",
+        "updatedAt",
+        "source",
+        "inputMethod",
+        "category",
+        "submittedText",
+        "originalTranscript",
+        "agentId",
+        "agentVersionId",
+        "conversationId",
+        "linkedKnowledgeUpdateId",
+        "status",
+        "revision",
+        "derivedSummary",
+        "events"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "enum": [
+            "owner",
+            "guest"
+          ]
+        },
+        "inputMethod": {
+          "enum": [
+            "text",
+            "dictation"
+          ]
+        },
+        "category": {
+          "enum": [
+            "business_context",
+            "quality",
+            "functionality",
+            "other"
+          ]
+        },
+        "submittedText": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+        "originalTranscript": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 10000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "agentId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "conversationId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "linkedKnowledgeUpdateId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "new",
+            "reviewed",
+            "resolved"
+          ]
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "derivedSummary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/builderFeedbackEvent"
+          }
+        }
+      }
+    },
+    "builderFeedbackSearchResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "records",
+        "nextCursor"
+      ],
+      "properties": {
+        "schemaVersion": {
+          "const": 1
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/builderFeedbackRecord"
+          },
+          "maxItems": 100
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "builderFeedbackDetailResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record"
+      ],
+      "properties": {
+        "record": {
+          "$ref": "#/$defs/builderFeedbackDetail"
+        }
+      }
+    },
+    "builderStatusInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedRevision",
+        "status"
+      ],
+      "properties": {
+        "expectedRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "status": {
+          "enum": [
+            "new",
+            "reviewed",
+            "resolved"
+          ]
+        }
+      }
+    },
+    "builderSessionResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "builder"
+      ],
+      "properties": {
+        "builder": {
+          "type": "boolean"
+        }
+      }
+    },
+    "builderCodeInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "challenge"
+      ],
+      "properties": {
+        "challenge": {
+          "type": "string",
+          "minLength": 43,
+          "maxLength": 128
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        }
+      }
+    },
+    "builderCodeResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "expiresAt"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "builderExchangeInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "verifier"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verifier": {
+          "type": "string",
+          "minLength": 43,
+          "maxLength": 128
+        }
+      }
+    },
+    "builderCredentialResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "token",
+        "credentialId",
+        "expiresAt",
+        "scope"
+      ],
+      "properties": {
+        "token": {
+          "type": "string",
+          "minLength": 4,
+          "pattern": "^flb_[A-Za-z0-9_-]{43}$"
+        },
+        "credentialId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "scope": {
+          "const": "feedback:read"
+        }
+      }
+    },
+    "builderRevokeResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "revoked"
+      ],
+      "properties": {
+        "revoked": {
+          "const": true
+        }
+      }
+    },
+    "assistantTurnInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clientTurnId",
+        "text",
+        "interrupted",
+        "expectedStateRevision"
+      ],
+      "properties": {
+        "clientTurnId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "interrupted": {
+          "type": "boolean"
+        },
+        "expectedStateRevision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "assistantTurnResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "seq"
+      ],
+      "properties": {
+        "seq": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "replayed": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+/* Live-voice surface (design spec PO-DS5: dark neutral only here). Same tokens as owner.css; prefix owner-call. */
+.owner-call{margin:0 0 24px}
+.owner-call__label{margin:0 0 12px;color:#1f4d3a;font:700 12px Inter,Arial,sans-serif;letter-spacing:.09em;text-transform:uppercase}
+.owner-call__panel{position:relative;min-height:240px;background:#2a2119;color:#fff;border-radius:18px;padding:clamp(24px,4vw,40px);display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.owner-call__state{display:flex;align-items:center;gap:13px;font:600 clamp(22px,3vw,30px)/1.2 'Inter',Inter,Arial,sans-serif;letter-spacing:-.02em}
+.owner-call__light{width:12px;height:12px;flex:none;border-radius:50%;background:#8b9b92}
+.owner-call__light--connected{background:#a8dbc0}
+.owner-call__light--reconnecting,.owner-call__light--microphone_blocked{background:#f1ca79}
+.owner-call__time{font-size:14px;font-variant-numeric:tabular-nums;color:#cfc6b8;margin:14px 0 0}
+.owner-call__error,.owner-call__note{max-width:62ch;border-left:3px solid #f1ca79;padding-left:14px;color:#f5e2ba;font-size:14px;line-height:1.5;margin:22px 0 0}
+.owner-call__audio{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.owner-call__actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:32px}
+.owner-call__actions:empty{display:none}
+.owner-call__actions button{min-height:40px;padding:0 16px;border:1px solid #dce7e0;border-radius:10px;background:#dce7e0;color:#1f4d3a;font:700 14px Inter,Arial,sans-serif;cursor:pointer}
+.owner-call__actions button:hover{background:#eee6da}
+.owner-call__actions button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.owner-call__actions .owner-call__secondary{background:transparent;color:#fff;border-color:#8a7d6e}
+.owner-call__actions .owner-call__secondary:hover{background:#3f362c}
+.owner-call__actions .owner-call__end{background:#fff;color:#2a2119;border-color:#fff}
+.owner-call__captions{margin-top:20px;border:1px solid #e2dcd3;border-radius:16px;background:#fff;padding:24px 28px;min-height:120px}
+.owner-call__captions-heading{display:flex;align-items:baseline;justify-content:space-between;gap:18px}
+.owner-call__captions h2{font:600 20px/1.2 'Inter',Inter,Arial,sans-serif;letter-spacing:-.02em;margin:0}
+.owner-call__captions-heading span{color:#6b6259;font-size:13px}
+.owner-call__captions ol{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:14px}
+.owner-call__captions li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;border-top:1px solid #e6ece8;padding-top:14px;font-size:14px;line-height:1.5}
+.owner-call__captions li strong{color:#1f4d3a}
+.owner-call__captions li p{margin:0;overflow-wrap:anywhere}
+.owner-call__empty{color:#6b6259;font-size:14px;line-height:1.5;margin:20px 0 0}
+@media (max-width:520px){
+  .owner-call__panel{padding:24px 20px}
+  .owner-call__actions{width:100%;flex-direction:column;align-items:stretch}
+  .owner-call__actions button{width:100%}
+  .owner-call__captions{padding:20px}
+  .owner-call__captions-heading{display:block}
+  .owner-call__captions-heading span{display:block;margin-top:4px}
+  .owner-call__captions li{grid-template-columns:1fr;gap:2px}
+}
+@media (prefers-reduced-motion:reduce){.owner-call *{transition:none!important;animation:none!important}}

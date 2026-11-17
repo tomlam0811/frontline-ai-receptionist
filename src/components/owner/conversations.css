@@ -1,0 +1,17 @@
+/* Conversation list, detail and transcript (design spec PO-DC16, PO-DC17, PO-S10). Prefix owner-. */
+.owner-conversation{display:block;text-decoration:none;color:inherit;min-height:44px;padding:4px 0}
+.owner-conversation strong{display:block;font:600 18px 'Inter',Inter,Arial,sans-serif;color:var(--forest)}
+.owner-conversation:hover strong{color:#163c2c}
+.owner-conversation__meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:6px;color:#6b6259;font-size:14px}
+.owner-detail-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:0 0 20px;color:#6b6259}
+.owner-summary-empty{margin:0 0 24px}
+.owner-outcomes,.owner-transcript,.owner-summary{margin:0 0 32px}
+.owner-recap{margin:0;font-size:17px;line-height:1.6;color:var(--ink);max-width:68ch}
+.owner-transcript__turns{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.owner-transcript__turn{max-width:min(85%,62ch);padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:var(--white)}
+.owner-transcript__turn--bob{align-self:flex-start;background:var(--mint-2);border-color:var(--mint);border-top-left-radius:4px}
+.owner-transcript__turn--caller{align-self:flex-end;border-top-right-radius:4px}
+.owner-transcript__turn b{display:block;font:650 13px Inter,Arial,sans-serif;color:var(--muted);letter-spacing:.02em;margin-bottom:4px}
+.owner-transcript__turn--bob b{color:var(--forest-2)}
+.owner-transcript__turn p{margin:0;line-height:1.55;overflow-wrap:anywhere;white-space:pre-wrap}
+@media (max-width:520px){.owner-conversation__meta{flex-direction:column;align-items:flex-start;gap:6px}.owner-transcript__turn{max-width:92%}}

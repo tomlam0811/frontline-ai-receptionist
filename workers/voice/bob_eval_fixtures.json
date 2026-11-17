@@ -1,0 +1,1407 @@
+{
+  "provenance": "Fictional scenario histories and public example.com contact. B01/B02/B03/B06 and paused counterparts use original intelligible incident utterances. Other social cases paraphrase reported repeated microphone check and tone complaint. Task cases are synthetic, not caller records.",
+  "scenarios": [
+    {
+      "id": "B01",
+      "lane": "bob",
+      "family": "social",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "Hey Bob, can you hear me?",
+      "expected": {
+        "tools": [
+          "none"
+        ]
+      },
+      "utteranceProvenance": "Original intelligible incident transcript supplied by coordinator"
+    },
+    {
+      "id": "B02",
+      "lane": "bob",
+      "family": "social",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "Yeah, so",
+      "expected": {
+        "tools": [
+          "none"
+        ]
+      },
+      "utteranceProvenance": "Original intelligible incident transcript supplied by coordinator"
+    },
+    {
+      "id": "B03",
+      "lane": "bob",
+      "family": "social",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "Um,",
+      "expected": {
+        "tools": [
+          "none"
+        ]
+      },
+      "utteranceProvenance": "Original intelligible incident transcript supplied by coordinator"
+    },
+    {
+      "id": "B04",
+      "lane": "bob",
+      "family": "social",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "Can you hear me now, Bob?",
+      "expected": {
+        "tools": [
+          "none"
+        ]
+      },
+      "utteranceProvenance": "Synthetic paraphrase of reported repeated microphone check or tone complaint"
+    },
+    {
+      "id": "B05",
+      "lane": "bob",
+      "family": "social",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "Could you sound less robotic and a little friendlier?",
+      "expected": {
+        "tools": [
+          "none"
+        ]
+      },
+      "utteranceProvenance": "Synthetic paraphrase of reported repeated microphone check or tone complaint"
+    },
+    {
+      "id": "B06",
+      "lane": "bob",
+      "family": "social",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "That doesn't make any sense.",
+      "expected": {
+        "tools": [
+          "none"
+        ]
+      },
+      "utteranceProvenance": "Original intelligible incident transcript supplied by coordinator"
+    },
+    {
+      "id": "B07",
+      "lane": "bob",
+      "family": "social",
+      "history": [
+        {
+          "role": "user",
+          "content": "I need driveway cleaning."
+        },
+        {
+          "role": "assistant",
+          "content": "Which city is the property in, and what email should go with the request?"
+        }
+      ],
+      "input": "Hey Bob, can you hear me?",
+      "expected": {
+        "tools": [
+          "none"
+        ]
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "needs_input",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": "Which city is the property in, and what email should go with the request?",
+        "readback": null,
+        "receipt": null,
+        "lookup": null
+      },
+      "utteranceProvenance": "Original intelligible incident transcript supplied by coordinator"
+    },
+    {
+      "id": "B08",
+      "lane": "bob",
+      "family": "social",
+      "history": [
+        {
+          "role": "user",
+          "content": "I need driveway cleaning."
+        },
+        {
+          "role": "assistant",
+          "content": "Which city is the property in, and what email should go with the request?"
+        }
+      ],
+      "input": "Yeah, so",
+      "expected": {
+        "tools": [
+          "none"
+        ]
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "needs_input",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": "Which city is the property in, and what email should go with the request?",
+        "readback": null,
+        "receipt": null,
+        "lookup": null
+      },
+      "utteranceProvenance": "Original intelligible incident transcript supplied by coordinator"
+    },
+    {
+      "id": "B09",
+      "lane": "bob",
+      "family": "social",
+      "history": [
+        {
+          "role": "user",
+          "content": "I need driveway cleaning."
+        },
+        {
+          "role": "assistant",
+          "content": "Which city is the property in, and what email should go with the request?"
+        }
+      ],
+      "input": "Um,",
+      "expected": {
+        "tools": [
+          "none"
+        ]
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "needs_input",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": "Which city is the property in, and what email should go with the request?",
+        "readback": null,
+        "receipt": null,
+        "lookup": null
+      },
+      "utteranceProvenance": "Original intelligible incident transcript supplied by coordinator"
+    },
+    {
+      "id": "B10",
+      "lane": "bob",
+      "family": "social",
+      "history": [
+        {
+          "role": "user",
+          "content": "I need driveway cleaning."
+        },
+        {
+          "role": "assistant",
+          "content": "Which city is the property in, and what email should go with the request?"
+        }
+      ],
+      "input": "Can you hear me now, Bob?",
+      "expected": {
+        "tools": [
+          "none"
+        ]
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "needs_input",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": "Which city is the property in, and what email should go with the request?",
+        "readback": null,
+        "receipt": null,
+        "lookup": null
+      },
+      "utteranceProvenance": "Synthetic paraphrase of reported repeated microphone check or tone complaint"
+    },
+    {
+      "id": "B11",
+      "lane": "bob",
+      "family": "social",
+      "history": [
+        {
+          "role": "user",
+          "content": "I need driveway cleaning."
+        },
+        {
+          "role": "assistant",
+          "content": "Which city is the property in, and what email should go with the request?"
+        }
+      ],
+      "input": "Could you sound less robotic and a little friendlier?",
+      "expected": {
+        "tools": [
+          "none"
+        ]
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "needs_input",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": "Which city is the property in, and what email should go with the request?",
+        "readback": null,
+        "receipt": null,
+        "lookup": null
+      },
+      "utteranceProvenance": "Synthetic paraphrase of reported repeated microphone check or tone complaint"
+    },
+    {
+      "id": "B12",
+      "lane": "bob",
+      "family": "social",
+      "history": [
+        {
+          "role": "user",
+          "content": "I need driveway cleaning."
+        },
+        {
+          "role": "assistant",
+          "content": "Which city is the property in, and what email should go with the request?"
+        }
+      ],
+      "input": "That doesn't make any sense.",
+      "expected": {
+        "tools": [
+          "none"
+        ]
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "needs_input",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": "Which city is the property in, and what email should go with the request?",
+        "readback": null,
+        "receipt": null,
+        "lookup": null
+      },
+      "utteranceProvenance": "Original intelligible incident transcript supplied by coordinator"
+    },
+    {
+      "id": "B13",
+      "lane": "bob",
+      "family": "fact",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "What time does your office close?",
+      "expected": {
+        "tools": [
+          "lookup_business_fact"
+        ]
+      }
+    },
+    {
+      "id": "B14",
+      "lane": "bob",
+      "family": "fact",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "What cleaning services do you offer?",
+      "expected": {
+        "tools": [
+          "list_services",
+          "lookup_business_fact"
+        ]
+      }
+    },
+    {
+      "id": "B15",
+      "lane": "bob",
+      "family": "side_question",
+      "history": [
+        {
+          "role": "user",
+          "content": "I need driveway cleaning."
+        },
+        {
+          "role": "assistant",
+          "content": "Which city is the property in, and what email should go with the request?"
+        }
+      ],
+      "input": "Before I give you my email, do you clean patios too?",
+      "expected": {
+        "tools": [
+          "list_services",
+          "lookup_business_fact"
+        ]
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "needs_input",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": "Which city is the property in, and what email should go with the request?",
+        "readback": null,
+        "receipt": null,
+        "lookup": null
+      }
+    },
+    {
+      "id": "B16",
+      "lane": "bob",
+      "family": "new_request",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "Please make a request to clean my driveway next Tuesday.",
+      "expected": {
+        "tools": [
+          "start_task"
+        ],
+        "arguments": {
+          "kind": "service_request"
+        }
+      }
+    },
+    {
+      "id": "B17",
+      "lane": "bob",
+      "family": "appointment_lookup",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "I want to cancel my appointment.",
+      "expected": {
+        "tools": [
+          "start_task"
+        ],
+        "arguments": {
+          "kind": "appointment_lookup"
+        }
+      }
+    },
+    {
+      "id": "B18",
+      "lane": "bob",
+      "family": "appointment_lookup",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "Could you reschedule my cleaning appointment?",
+      "expected": {
+        "tools": [
+          "start_task"
+        ],
+        "arguments": {
+          "kind": "appointment_lookup"
+        }
+      }
+    },
+    {
+      "id": "B19",
+      "lane": "bob",
+      "family": "business_complaint",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "Your cleaning crew scratched my gate. I want to file a complaint.",
+      "expected": {
+        "tools": [
+          "start_task"
+        ],
+        "arguments": {
+          "kind": "complaint"
+        }
+      }
+    },
+    {
+      "id": "B20",
+      "lane": "bob",
+      "family": "task_input",
+      "history": [
+        {
+          "role": "user",
+          "content": "I need driveway cleaning."
+        },
+        {
+          "role": "assistant",
+          "content": "Which city is the property in, and what email should go with the request?"
+        }
+      ],
+      "input": "The property is in Pasadena and my email is jamie@example.com.",
+      "expected": {
+        "tools": [
+          "provide_task_input"
+        ]
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "needs_input",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": "Which city is the property in, and what email should go with the request?",
+        "readback": null,
+        "receipt": null,
+        "lookup": null
+      }
+    },
+    {
+      "id": "B21",
+      "lane": "bob",
+      "family": "correction",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "I have driveway cleaning in Pasadena next Tuesday. Are all those details correct?"
+        }
+      ],
+      "input": "Actually, change the preferred day to Wednesday.",
+      "expected": {
+        "tools": [
+          "provide_task_input"
+        ]
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "awaiting_confirmation",
+        "fields": {
+          "callerName": "Jamie Example",
+          "serviceNeed": "Driveway cleaning",
+          "propertyCity": "Pasadena",
+          "contactEmail": "jamie@example.com",
+          "preferredDay": "Tuesday"
+        },
+        "missingFields": [],
+        "pendingQuestion": "Are all those request details correct?",
+        "readback": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "fieldRevision": 1,
+          "readbackRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "afterCallerTurnSequence": 2
+        },
+        "receipt": null,
+        "lookup": null
+      }
+    },
+    {
+      "id": "B22",
+      "lane": "bob",
+      "family": "confirmation",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "I have driveway cleaning in Pasadena next Tuesday. Are all those details correct?"
+        }
+      ],
+      "input": "Yes, those details are correct.",
+      "expected": {
+        "tools": [
+          "provide_task_input"
+        ]
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "awaiting_confirmation",
+        "fields": {
+          "callerName": "Jamie Example",
+          "serviceNeed": "Driveway cleaning",
+          "propertyCity": "Pasadena",
+          "contactEmail": "jamie@example.com",
+          "preferredDay": "Tuesday"
+        },
+        "missingFields": [],
+        "pendingQuestion": "Are all those request details correct?",
+        "readback": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "fieldRevision": 1,
+          "readbackRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "afterCallerTurnSequence": 2
+        },
+        "receipt": null,
+        "lookup": null
+      }
+    },
+    {
+      "id": "B23",
+      "lane": "bob",
+      "family": "denial",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "I have driveway cleaning in Pasadena next Tuesday. Are all those details correct?"
+        }
+      ],
+      "input": "No, that is not correct.",
+      "expected": {
+        "tools": [
+          "provide_task_input"
+        ]
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "awaiting_confirmation",
+        "fields": {
+          "callerName": "Jamie Example",
+          "serviceNeed": "Driveway cleaning",
+          "propertyCity": "Pasadena",
+          "contactEmail": "jamie@example.com",
+          "preferredDay": "Tuesday"
+        },
+        "missingFields": [],
+        "pendingQuestion": "Are all those request details correct?",
+        "readback": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "fieldRevision": 1,
+          "readbackRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "afterCallerTurnSequence": 2
+        },
+        "receipt": null,
+        "lookup": null
+      }
+    },
+    {
+      "id": "B24",
+      "lane": "bob",
+      "family": "cancel_task",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "Forget the request. I do not want to go ahead.",
+      "expected": {
+        "tools": [
+          "cancel_task"
+        ]
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "needs_input",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": "Which city is the property in, and what email should go with the request?",
+        "readback": null,
+        "receipt": null,
+        "lookup": null
+      }
+    },
+    {
+      "id": "B25",
+      "lane": "bob",
+      "family": "terminal",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "I want to speak to a real person.",
+      "expected": {
+        "tools": [
+          "request_human_or_end"
+        ],
+        "arguments": {
+          "reason": "human_preference"
+        }
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "needs_input",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": "Which city is the property in, and what email should go with the request?",
+        "readback": null,
+        "receipt": null,
+        "lookup": null
+      }
+    },
+    {
+      "id": "B26",
+      "lane": "bob",
+      "family": "terminal",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "This is going nowhere. Is there anyone who actually works there I could talk to?",
+      "expected": {
+        "tools": [
+          "request_human_or_end"
+        ],
+        "arguments": {
+          "reason": "human_preference"
+        }
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "needs_input",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": "Which city is the property in, and what email should go with the request?",
+        "readback": null,
+        "receipt": null,
+        "lookup": null
+      }
+    },
+    {
+      "id": "B27",
+      "lane": "bob",
+      "family": "terminal",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "I urgently need the spill cleaned up today.",
+      "expected": {
+        "tools": [
+          "request_human_or_end"
+        ],
+        "arguments": {
+          "reason": "urgency"
+        }
+      }
+    },
+    {
+      "id": "B28",
+      "lane": "bob",
+      "family": "terminal",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "Someone has been seriously injured and needs emergency help now.",
+      "expected": {
+        "tools": [
+          "request_human_or_end"
+        ],
+        "arguments": {
+          "reason": "safety_emergency"
+        }
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "awaiting_confirmation",
+        "fields": {
+          "callerName": "Jamie Example",
+          "serviceNeed": "Driveway cleaning",
+          "propertyCity": "Pasadena",
+          "contactEmail": "jamie@example.com",
+          "preferredDay": "Tuesday"
+        },
+        "missingFields": [],
+        "pendingQuestion": "Are all those request details correct?",
+        "readback": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "fieldRevision": 1,
+          "readbackRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "afterCallerTurnSequence": 2
+        },
+        "receipt": null,
+        "lookup": null
+      }
+    },
+    {
+      "id": "B29",
+      "lane": "bob",
+      "family": "terminal",
+      "history": [
+        {
+          "role": "assistant",
+          "content": "Hi, I am Bob. How can I help?"
+        }
+      ],
+      "input": "Please end this call now.",
+      "expected": {
+        "tools": [
+          "request_human_or_end"
+        ],
+        "arguments": {
+          "reason": "caller_ended"
+        }
+      }
+    },
+    {
+      "id": "B30",
+      "lane": "bob",
+      "family": "terminal",
+      "history": [
+        {
+          "role": "user",
+          "content": "Can you guarantee a crew tomorrow?"
+        },
+        {
+          "role": "assistant",
+          "content": "I cannot verify availability or guarantee a crew. I can save a service request for review. Would that work?"
+        }
+      ],
+      "input": "A request is no use to me. I can only proceed if you guarantee a crew tomorrow.",
+      "expected": {
+        "tools": [
+          "request_human_or_end"
+        ],
+        "arguments": {
+          "reason": "blocking_unknown"
+        }
+      },
+      "taskContext": {
+        "kind": "service_request",
+        "status": "needs_input",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": "Which city is the property in, and what email should go with the request?",
+        "readback": null,
+        "receipt": null,
+        "lookup": null
+      }
+    },
+    {
+      "id": "T01",
+      "lane": "task",
+      "family": "clear_affirmation",
+      "task": {
+        "kind": "service_request",
+        "status": "running",
+        "fields": {
+          "callerName": "Jamie Example",
+          "serviceNeed": "Driveway cleaning",
+          "propertyCity": "Pasadena",
+          "contactEmail": "jamie@example.com",
+          "preferredDay": "Tuesday"
+        },
+        "missingFields": [],
+        "pendingQuestion": "Are all those request details correct?",
+        "readback": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "fieldRevision": 1,
+          "readbackRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "afterCallerTurnSequence": 2
+        },
+        "receipt": null,
+        "lookup": null,
+        "taskId": "11111111-1111-4111-8111-111111111111",
+        "inputRevision": 2,
+        "callerTurnId": "22222222-2222-4222-8222-222222222222",
+        "goal": "Request driveway cleaning on Tuesday",
+        "validation": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "missingFields": [],
+          "fieldRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "error": null,
+        "evidenceTurns": [
+          {
+            "callerTurnId": "33333333-3333-4333-8333-333333333333",
+            "text": "I am Jamie Example. Please request driveway cleaning Tuesday in Pasadena. My email is jamie@example.com."
+          },
+          {
+            "callerTurnId": "22222222-2222-4222-8222-222222222222",
+            "text": "Yes, those details are correct.",
+            "sequence": 3
+          }
+        ],
+        "confirmationReady": true
+      },
+      "expected": {
+        "tools": [
+          "commit_confirmed_request"
+        ],
+        "arguments": {
+          "confirmationText": "Yes, those details are correct."
+        }
+      }
+    },
+    {
+      "id": "T02",
+      "lane": "task",
+      "family": "corrective_yes",
+      "task": {
+        "kind": "service_request",
+        "status": "running",
+        "fields": {
+          "callerName": "Jamie Example",
+          "serviceNeed": "Driveway cleaning",
+          "propertyCity": "Pasadena",
+          "contactEmail": "jamie@example.com",
+          "preferredDay": "Tuesday"
+        },
+        "missingFields": [],
+        "pendingQuestion": "Are all those request details correct?",
+        "readback": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "fieldRevision": 1,
+          "readbackRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "afterCallerTurnSequence": 2
+        },
+        "receipt": null,
+        "lookup": null,
+        "taskId": "11111111-1111-4111-8111-111111111111",
+        "inputRevision": 2,
+        "callerTurnId": "22222222-2222-4222-8222-222222222222",
+        "goal": "Request driveway cleaning on Tuesday",
+        "validation": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "missingFields": [],
+          "fieldRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "error": null,
+        "evidenceTurns": [
+          {
+            "callerTurnId": "33333333-3333-4333-8333-333333333333",
+            "text": "I am Jamie Example. Please request driveway cleaning Tuesday in Pasadena. My email is jamie@example.com."
+          },
+          {
+            "callerTurnId": "22222222-2222-4222-8222-222222222222",
+            "text": "Yes, but change Tuesday to Wednesday.",
+            "sequence": 3
+          }
+        ],
+        "confirmationReady": true
+      },
+      "expected": {
+        "tools": [
+          "validate_request"
+        ],
+        "arguments": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Wednesday"
+          }
+        }
+      }
+    },
+    {
+      "id": "T03",
+      "lane": "task",
+      "family": "ambiguous_confirmation",
+      "task": {
+        "kind": "service_request",
+        "status": "running",
+        "fields": {
+          "callerName": "Jamie Example",
+          "serviceNeed": "Driveway cleaning",
+          "propertyCity": "Pasadena",
+          "contactEmail": "jamie@example.com",
+          "preferredDay": "Tuesday"
+        },
+        "missingFields": [],
+        "pendingQuestion": "Are all those request details correct?",
+        "readback": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "fieldRevision": 1,
+          "readbackRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "afterCallerTurnSequence": 2
+        },
+        "receipt": null,
+        "lookup": null,
+        "taskId": "11111111-1111-4111-8111-111111111111",
+        "inputRevision": 2,
+        "callerTurnId": "22222222-2222-4222-8222-222222222222",
+        "goal": "Request driveway cleaning on Tuesday",
+        "validation": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "missingFields": [],
+          "fieldRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "error": null,
+        "evidenceTurns": [
+          {
+            "callerTurnId": "33333333-3333-4333-8333-333333333333",
+            "text": "I am Jamie Example. Please request driveway cleaning Tuesday in Pasadena. My email is jamie@example.com."
+          },
+          {
+            "callerTurnId": "22222222-2222-4222-8222-222222222222",
+            "text": "Maybe, I guess.",
+            "sequence": 3
+          }
+        ],
+        "confirmationReady": true
+      },
+      "expected": {
+        "tools": [
+          "request_input"
+        ],
+        "arguments": {
+          "repeatReadback": true
+        }
+      }
+    },
+    {
+      "id": "T04",
+      "lane": "task",
+      "family": "negative_confirmation",
+      "task": {
+        "kind": "service_request",
+        "status": "running",
+        "fields": {
+          "callerName": "Jamie Example",
+          "serviceNeed": "Driveway cleaning",
+          "propertyCity": "Pasadena",
+          "contactEmail": "jamie@example.com",
+          "preferredDay": "Tuesday"
+        },
+        "missingFields": [],
+        "pendingQuestion": "Are all those request details correct?",
+        "readback": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "fieldRevision": 1,
+          "readbackRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "afterCallerTurnSequence": 2
+        },
+        "receipt": null,
+        "lookup": null,
+        "taskId": "11111111-1111-4111-8111-111111111111",
+        "inputRevision": 2,
+        "callerTurnId": "22222222-2222-4222-8222-222222222222",
+        "goal": "Request driveway cleaning on Tuesday",
+        "validation": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "missingFields": [],
+          "fieldRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "error": null,
+        "evidenceTurns": [
+          {
+            "callerTurnId": "33333333-3333-4333-8333-333333333333",
+            "text": "I am Jamie Example. Please request driveway cleaning Tuesday in Pasadena. My email is jamie@example.com."
+          },
+          {
+            "callerTurnId": "22222222-2222-4222-8222-222222222222",
+            "text": "No, that is not correct.",
+            "sequence": 3
+          }
+        ],
+        "confirmationReady": true
+      },
+      "expected": {
+        "tools": [
+          "request_input"
+        ]
+      }
+    },
+    {
+      "id": "T05",
+      "lane": "task",
+      "family": "interrupted_readback",
+      "task": {
+        "kind": "service_request",
+        "status": "running",
+        "fields": {
+          "callerName": "Jamie Example",
+          "serviceNeed": "Driveway cleaning",
+          "propertyCity": "Pasadena",
+          "contactEmail": "jamie@example.com",
+          "preferredDay": "Tuesday"
+        },
+        "missingFields": [],
+        "pendingQuestion": null,
+        "readback": null,
+        "receipt": null,
+        "lookup": null,
+        "taskId": "11111111-1111-4111-8111-111111111111",
+        "inputRevision": 2,
+        "callerTurnId": "22222222-2222-4222-8222-222222222222",
+        "goal": "Request driveway cleaning on Tuesday",
+        "validation": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "missingFields": [],
+          "fieldRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "error": null,
+        "evidenceTurns": [
+          {
+            "callerTurnId": "33333333-3333-4333-8333-333333333333",
+            "text": "I am Jamie Example. Please request driveway cleaning Tuesday in Pasadena. My email is jamie@example.com."
+          },
+          {
+            "callerTurnId": "22222222-2222-4222-8222-222222222222",
+            "text": "Yes.",
+            "sequence": 2
+          }
+        ],
+        "confirmationReady": false
+      },
+      "expected": {
+        "tools": [
+          "request_input"
+        ],
+        "arguments": {
+          "repeatReadback": true,
+          "missingFields": []
+        }
+      }
+    },
+    {
+      "id": "T06",
+      "lane": "task",
+      "family": "multiple_pending_questions",
+      "task": {
+        "kind": "service_request",
+        "status": "running",
+        "fields": {
+          "callerName": "Jamie Example",
+          "serviceNeed": "Driveway cleaning",
+          "propertyCity": "Pasadena",
+          "contactEmail": "jamie@example.com",
+          "preferredDay": "Tuesday"
+        },
+        "missingFields": [],
+        "pendingQuestion": "Do you mean residential cleaning, and are all those request details correct?",
+        "readback": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "fieldRevision": 1,
+          "readbackRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "afterCallerTurnSequence": 2
+        },
+        "receipt": null,
+        "lookup": null,
+        "taskId": "11111111-1111-4111-8111-111111111111",
+        "inputRevision": 2,
+        "callerTurnId": "22222222-2222-4222-8222-222222222222",
+        "goal": "Request driveway cleaning on Tuesday",
+        "validation": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "missingFields": [],
+          "fieldRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "error": null,
+        "evidenceTurns": [
+          {
+            "callerTurnId": "33333333-3333-4333-8333-333333333333",
+            "text": "I am Jamie Example. Please request driveway cleaning Tuesday in Pasadena. My email is jamie@example.com."
+          },
+          {
+            "callerTurnId": "22222222-2222-4222-8222-222222222222",
+            "text": "Yes.",
+            "sequence": 3
+          }
+        ],
+        "confirmationReady": false
+      },
+      "expected": {
+        "tools": [
+          "request_input"
+        ],
+        "arguments": {
+          "repeatReadback": true
+        }
+      }
+    },
+    {
+      "id": "T07",
+      "lane": "task",
+      "family": "mixed_confirmation",
+      "task": {
+        "kind": "service_request",
+        "status": "running",
+        "fields": {
+          "callerName": "Jamie Example",
+          "serviceNeed": "Driveway cleaning",
+          "propertyCity": "Pasadena",
+          "contactEmail": "jamie@example.com",
+          "preferredDay": "Tuesday"
+        },
+        "missingFields": [],
+        "pendingQuestion": "Are all those request details correct?",
+        "readback": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "fieldRevision": 1,
+          "readbackRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "afterCallerTurnSequence": 2
+        },
+        "receipt": null,
+        "lookup": null,
+        "taskId": "11111111-1111-4111-8111-111111111111",
+        "inputRevision": 2,
+        "callerTurnId": "22222222-2222-4222-8222-222222222222",
+        "goal": "Request driveway cleaning on Tuesday",
+        "validation": {
+          "fields": {
+            "callerName": "Jamie Example",
+            "serviceNeed": "Driveway cleaning",
+            "propertyCity": "Pasadena",
+            "contactEmail": "jamie@example.com",
+            "preferredDay": "Tuesday"
+          },
+          "missingFields": [],
+          "fieldRevision": 1,
+          "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "error": null,
+        "evidenceTurns": [
+          {
+            "callerTurnId": "33333333-3333-4333-8333-333333333333",
+            "text": "I am Jamie Example. Please request driveway cleaning Tuesday in Pasadena. My email is jamie@example.com."
+          },
+          {
+            "callerTurnId": "22222222-2222-4222-8222-222222222222",
+            "text": "Yes and no; I am not sure about the day.",
+            "sequence": 3
+          }
+        ],
+        "confirmationReady": true
+      },
+      "expected": {
+        "tools": [
+          "request_input",
+          "validate_request"
+        ]
+      }
+    },
+    {
+      "id": "T08",
+      "lane": "task",
+      "family": "missing_fields",
+      "task": {
+        "kind": "service_request",
+        "status": "running",
+        "fields": {
+          "serviceNeed": "Driveway cleaning"
+        },
+        "missingFields": [
+          "callerName",
+          "propertyCity",
+          "contactEmail"
+        ],
+        "pendingQuestion": null,
+        "readback": null,
+        "receipt": null,
+        "lookup": null,
+        "taskId": "11111111-1111-4111-8111-111111111111",
+        "inputRevision": 2,
+        "callerTurnId": "22222222-2222-4222-8222-222222222222",
+        "goal": "Request driveway cleaning on Tuesday",
+        "validation": null,
+        "error": null,
+        "evidenceTurns": [
+          {
+            "callerTurnId": "22222222-2222-4222-8222-222222222222",
+            "text": "Can you clean my driveway?",
+            "sequence": 1
+          }
+        ],
+        "confirmationReady": false
+      },
+      "expected": {
+        "tools": [
+          "validate_request"
+        ]
+      }
+    }
+  ]
+}

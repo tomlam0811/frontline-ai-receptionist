@@ -1,0 +1,9 @@
+# The Vercel project builds only the Vite frontend.
+/.env*
+/.lavish/
+/work/
+/docs/
+/tests/
+/dist/
+/.venv/
+/error.log
