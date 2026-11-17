@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://frontline.local/contracts/v1/appointment-lookup.schema.json",
+  "title": "Scoped appointment lookup result",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "lookupId",
+        "workflowRevision"
+      ],
+      "properties": {
+        "kind": {
+          "const": "not_found"
+        },
+        "lookupId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "workflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "lookupId",
+        "workflowRevision"
+      ],
+      "properties": {
+        "kind": {
+          "const": "verification_required"
+        },
+        "lookupId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "workflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "lookupId",
+        "reason",
+        "workflowRevision"
+      ],
+      "properties": {
+        "kind": {
+          "const": "unavailable"
+        },
+        "lookupId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "reason": {
+          "enum": [
+            "provider_error",
+            "timeout",
+            "storage_error"
+          ]
+        },
+        "workflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+livekit-agents[openai]==1.8.3
+livekit-plugins-openai==1.8.3
+livekit-plugins-cartesia==1.8.3
+# 0.3.2, not 0.3.0: 0.3.0 has a reported crash (SIGABRT) in the room-teardown path on livekit-agents 1.8.x
+# when a participant disconnects during audio stream setup (livekit/agents#7277). 0.3.2 shipped the day
+# after that report; unconfirmed from outside whether it's the fix, so watch worker logs after deploy.
+livekit-plugins-noise-cancellation==0.3.2
+openai[realtime]==2.54.0
+jellyfish==1.2.1

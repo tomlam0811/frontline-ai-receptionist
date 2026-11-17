@@ -1,0 +1,10 @@
+/* Test and Guest screens. New classes only, prefixed owner-; tokens come from owner.css. */
+.owner-focus-heading:focus{outline:none}
+.owner-links{display:flex;flex-wrap:wrap;gap:8px 24px;margin:20px 0 0}
+.owner-links a{display:inline-flex;align-items:center;min-height:44px;font-weight:650}
+.owner-main .owner-card>p:not(.owner-muted){line-height:1.55}
+.owner-test-result .outcome-list{margin:0 0 16px}
+.owner-test-result .owner-focus-heading{font:400 15px/1.5 Inter,Arial,sans-serif;color:var(--muted);margin:0 0 12px}
+.owner-test-result .owner-chips{margin:0 0 16px}
+.owner-test-result .outcome-card{padding:20px}
+.owner-test-result .owner-card h2{margin:0 0 16px}

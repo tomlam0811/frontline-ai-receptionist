@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "advisoryLockId": "46298131840",
+  "ledgerTable": "frontline_schema_migrations",
+  "migrations": [
+    {"position":1,"filename":"001_scoped_workspace.sql","sha256":"4e66f220ca89dac5d1d11f47d5c42ebeda02b0aa89d4c9b53d02c5bbf6106f9b"},
+    {"position":2,"filename":"002_voice_budget.sql","sha256":"8f094e23d6785c23504f262000b5ed35949319e1d56afeed71281afed6859f2f"},
+    {"position":3,"filename":"003_demo_deadlines.sql","sha256":"8290936ac46f0079733c06e8178666642caae4ea4d90f0f24bbfe194da392026"},
+    {"position":4,"filename":"004_anonymous_retention.sql","sha256":"f8bf351b12838c94a820739b7a34149c4c9895b87048c8616200673a1a9d46e8"},
+    {"position":5,"filename":"005_preparation_jobs.sql","sha256":"d09552c25f998637d7b38cdfd49a873f915bb84fca904a27aad0eb1ab5f59066"},
+    {"position":6,"filename":"006_auth_claims.sql","sha256":"7036f4ac287baf7dfc5eafabd3b844a2884679d08a437b1fad063688a7daa822"},
+    {"position":7,"filename":"006_exa_research_budget.sql","sha256":"4078d7e2c1f51ef3d56bdef36b7801ae74bb7c1e2bb74fde6e0f5aa8d3d75bf6"},
+    {"position":8,"filename":"007_voice_scope_starts.sql","sha256":"12993343154b6ba2f59e2b528f63663b4680bf8b48b423e894387a44ca419bd0"},
+    {"position":9,"filename":"008_voice_scope_fifth_start.sql","sha256":"3eb0eecb17a89546f3d75a0d66b9279dcdc6b6b50823a892eb207f90e5c1bb9b"},
+    {"position":10,"filename":"009_builder_access.sql","sha256":"f2872d6a28832d7c1ea9aeb1e1034ca9b157253e88f2b33d7d5ed27b5fe0ed7e"},
+    {"position":11,"filename":"010_feedback_store.sql","sha256":"379dea1bd924f0bd890490e60ee81b08051783a4b4e7e234e4375e86d2148464"},
+    {"position":12,"filename":"011_owner_identity.sql","sha256":"56695b726deaf3952afb65dd15a6b334d3556de4a4d440360fdc43b0538080de"},
+    {"position":13,"filename":"012_share_grants.sql","sha256":"f74b7810db1a1361507aa4381123e3d01ad68022403a6f6be3cc7668031ce3b2"},
+    {"position":14,"filename":"013_claimed_voice_reservations.sql","sha256":"2eac806e4eb5d2b4b949583f2a647314a5806a3c18c2f27d977300b497ab164f"},
+    {"position":15,"filename":"014_post_onboarding_retention.sql","sha256":"381a6dee0c48cfd1d77fb33bf8f521db4bda6b9475eb99fb81c07f71e3a861c3"},
+    {"position":16,"filename":"015_demo_scope_replacement.sql","sha256":"2b16b09b0012f8d0b6d87d5c346dcd00d58e4f240d7fde8ec2fbc9c2a7fb4fec"},
+    {"position":17,"filename":"016_source_erasure.sql","sha256":"d13ffeb363194e623a315b57dc28117d234374b3a0b10fd3d5a3ff90e3c3bd9c"},
+    {"position":18,"filename":"017_receptionist_create.sql","sha256":"cebdcaa0bb8d97e0745da8b9e71067188d961025ea58263d629991b8092282b5"},
+    {"position":19,"filename":"018_receptionist_deletion.sql","sha256":"981126d1a704d62561c1ff7887dd3ed0d8dce3242df8867af27bde83facc817e"},
+    {"position":20,"filename":"019_account_deletion.sql","sha256":"a8f7861e2748f2095c994e5bc81ab672472f46c23208d148d553def880588b24"},
+    {"position":21,"filename":"020_owner_test_pacific_day.sql","sha256":"124aecb87d595b2cb207221d42857f64767eaa54614768407155ccb334b55c1e"}
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "deadlinesSeconds": {"setup": 20, "softClose": 270, "hardEnd": 300},
+  "workflows": [
+    {"id":"WF-01","name":"questions","allowedTools":["retrieve_facts","get_service_details"]},
+    {"id":"WF-02","name":"service_choice","allowedTools":["list_services","get_service_details"]},
+    {"id":"WF-03","name":"new_request","allowedTools":["validate_request","save_request"]},
+    {"id":"WF-04","name":"existing_request","allowedTools":["lookup_appointment"]},
+    {"id":"WF-05","name":"complaint","allowedTools":["save_case"]},
+    {"id":"WF-06","name":"human_help","allowedTools":["record_escalation","end_session"]}
+  ],
+  "escalationReasons": ["human_preference","blocking_unknown","urgency","safety_emergency"]
+}

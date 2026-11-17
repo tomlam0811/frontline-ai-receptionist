@@ -1,0 +1,83 @@
+/* Knowledge screen (design spec PO-S3). Only existing tokens; every class is prefixed owner-. */
+.owner-page-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0 16px}
+.owner-page-head .bob-button{margin-top:2px}
+.owner-knowledge-section{margin:48px 0 0}
+.owner-knowledge-section>h2{font:600 18px/1.3 'Inter',Inter,Arial,sans-serif;margin:0 0 16px}
+.owner-categories{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.owner-category{border-top:1px solid var(--line)}
+.owner-category:first-child{border-top:0}
+.owner-category>summary{display:flex;justify-content:flex-start;gap:12px;align-items:center;min-height:48px;padding:8px 16px;cursor:pointer;font:600 16px 'Inter',Inter,Arial,sans-serif;list-style:none}
+.owner-category>summary::-webkit-details-marker{display:none}
+.owner-category>summary::before{content:'\25B8';color:var(--forest-2)}
+.owner-category[open]>summary::before{content:'\25BE'}
+.owner-category__count{margin-left:auto;font:400 14px Inter,Arial,sans-serif;color:var(--muted)}
+.owner-category__body{padding:0 16px 12px}
+.owner-missing{list-style:none;margin:0;padding:0;background:#fff;border:1px solid var(--line);border-radius:14px}
+.owner-missing li{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:48px;padding:0 6px 0 16px;border-top:1px solid var(--line);font-size:15px;color:var(--muted)}
+.owner-missing li:first-child{border-top:0}
+.owner-missing .owner-text-button{min-height:44px}
+.owner-fact{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.owner-fact__text{min-width:0;flex:1}
+.owner-fact__text p{margin:2px 0}
+.owner-fact__value{font-size:16px;line-height:1.5;overflow-wrap:anywhere;margin:0 0 4px}
+.owner-fact__actions{display:flex;gap:8px;flex:none}
+.owner-fact__flag{display:flex;flex-wrap:wrap;gap:8px;align-items:center;color:var(--danger);font-size:14px}
+.owner-not-used{margin-top:16px;border-top:1px solid var(--line);padding-top:8px}
+.owner-not-used>summary{min-height:44px;display:flex;align-items:center;cursor:pointer;font-weight:650;color:var(--forest-2)}
+/* The row list of ways to add material, used by the setup screens. */
+.owner-input-bar{list-style:none;margin:0 0 16px;padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.owner-input-bar li{border-top:1px solid var(--line)}
+.owner-input-bar li:first-child{border-top:0}
+.owner-method-row{display:flex;align-items:flex-start;gap:14px;width:100%;min-height:44px;padding:14px 16px;background:none;border:0;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.owner-method-row__dot{flex:none;width:18px;height:18px;margin-top:1px;border-radius:50%;border:1.5px solid var(--line);background:#fff;box-sizing:border-box;transition:border-color 150ms,border-width 150ms}
+.owner-method-row[aria-pressed=true]{background:var(--mint-2)}
+.owner-method-row[aria-pressed=true] .owner-method-row__dot{border-color:var(--forest);border-width:5px}
+.owner-method-row__text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.owner-method-row__label{font:650 15px Inter,Arial,sans-serif}
+.owner-method-row__caption{color:var(--muted);font-size:13px}
+.owner-add{margin:0 0 16px}
+.owner-add .owner-card{margin-top:16px}
+.owner-panel{margin-top:16px}
+.owner-panel .owner-actions{margin-top:0}
+.owner-field>label{display:block;font:650 14px Inter,Arial,sans-serif;margin-bottom:6px}
+.owner-field p.owner-muted{margin:0 0 8px}
+.owner-field input[type=file]{display:block;margin:8px 0;min-height:44px;font:400 15px Inter,Arial,sans-serif}
+.owner-dropzone{padding:16px;border:1px dashed var(--forest-2);border-radius:12px;background:#fff;min-height:44px;box-sizing:border-box}
+.owner-recording{font-weight:700;color:var(--danger)}
+.owner-editor__category{margin:0 0 16px}
+.owner-editor__category span{color:var(--muted);font-size:14px;margin-right:8px}
+.owner-review{margin:0 0 24px}
+.owner-review h2:focus{outline:none}
+.owner-candidate{padding:16px 0}
+.owner-candidate p{margin:4px 0}
+.owner-tag{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--mint);color:var(--forest);font:700 13px Inter,Arial,sans-serif}
+.owner-quote{margin:8px 0;padding:8px 16px;border-left:3px solid var(--mint);background:var(--mint-2);border-radius:0 10px 10px 0;overflow-wrap:anywhere}
+.owner-quote footer{margin-top:4px}
+.owner-flags{margin:8px 0;padding-left:20px;color:var(--warning)}
+.owner-decision{margin:12px 0 0}
+.owner-decision__options{display:flex;flex-wrap:wrap;gap:4px 24px}
+.owner-review__footer{border-top:1px solid var(--line);margin-top:8px;padding-top:12px}
+@media (min-width:521px){.owner-review__footer{position:sticky;bottom:0;background:#fff;box-shadow:0 -8px 16px rgba(23,32,29,.06)}}
+.owner-empty-note{color:#6b6259}
+@media (max-width:520px){
+  .owner-fact{flex-direction:column;gap:4px}
+  .owner-fact__actions{flex-wrap:wrap;width:100%}
+  .owner-fact__actions .owner-text-button{min-height:44px}
+  .owner-category>summary{padding:12px 16px}
+  .owner-category__body{padding:0 16px 16px}
+}
+.owner-sources{margin-top:40px}
+.owner-sources>h2{font:600 18px/1.3 'Inter',Inter,Arial,sans-serif;margin:0 0 16px}
+/* The chooser and its rows. */
+.owner-choices__title{font:650 12px/1.4 Inter,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px}
+.owner-choices__title:first-of-type{margin-top:8px}
+.owner-choices{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.owner-choice{display:flex;flex-direction:column;align-items:flex-start;gap:2px;box-sizing:border-box;width:100%;min-height:56px;padding:10px 14px;background:#fff;border:1px solid var(--line);border-radius:10px;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
+.owner-choice:hover{border-color:var(--forest);background:var(--mint-2)}
+.owner-choice:focus-visible{outline:3px solid rgba(31,77,58,.35);outline-offset:2px}
+.owner-choice__title{font:650 15px Inter,Arial,sans-serif}
+.owner-choice__caption{font-size:13px;color:var(--muted)}
+@media (max-width:520px){
+  .owner-choices{grid-template-columns:1fr}
+  .owner-page-head .bob-button{width:100%;margin:0 0 16px}
+}

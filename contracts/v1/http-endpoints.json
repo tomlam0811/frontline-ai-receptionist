@@ -1,0 +1,733 @@
+{
+  "version": "1.0.0",
+  "authority": "server",
+  "workerAuthentication": {
+    "headers": [
+      "Authorization",
+      "X-Frontline-Room",
+      "X-Frontline-Generation",
+      "X-Frontline-Agent-Version-Id"
+    ],
+    "binding": "Authenticate worker bearer and bind room, generation and pinned agent to server-loaded demo before recording caller text or any action."
+  },
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/caller-turns",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/callerTurnInput"
+      },
+      "response": {
+        "$ref": "schemas/boundary.schema.json#/$defs/finalizedCallerTurn"
+      },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/turn",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/turnInput"
+      },
+      "response": {
+        "$ref": "schemas/boundary.schema.json#/$defs/turnDecision"
+      },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/task",
+      "status": "implemented_bob-task-v1",
+      "auth": "worker",
+      "request": { "$ref": "schemas/task.schema.json#/$defs/command" },
+      "response": { "$ref": "schemas/task.schema.json#/$defs/response" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/task-end",
+      "status": "implemented_bob-task-v1",
+      "auth": "worker",
+      "request": { "$ref": "schemas/task.schema.json#/$defs/endInput" },
+      "response": { "$ref": "schemas/boundary.schema.json#/$defs/endingSession" },
+      "toolIds": ["end_session"]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/requests/validate",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/validateRequestInput"
+      },
+      "response": {
+        "$ref": "schemas/boundary.schema.json#/$defs/fieldValidation"
+      },
+      "toolIds": [
+        "validate_request"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/requests/readback",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/readbackInput"
+      },
+      "response": {
+        "$ref": "schemas/boundary.schema.json#/$defs/readback"
+      },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/requests/confirmations",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/confirmationInput"
+      },
+      "response": {
+        "$ref": "schemas/confirmation.schema.json"
+      },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/requests",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/saveRequestInput"
+      },
+      "response": {
+        "$ref": "schemas/receipt.schema.json"
+      },
+      "toolIds": [
+        "save_request"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/appointments/lookup",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/lookupInput"
+      },
+      "response": {
+        "$ref": "schemas/appointment-lookup.schema.json"
+      },
+      "toolIds": [
+        "lookup_appointment"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/cases",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/saveCaseInput"
+      },
+      "response": {
+        "$ref": "schemas/receipt.schema.json"
+      },
+      "toolIds": [
+        "save_case"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/escalations",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/escalationInput"
+      },
+      "response": {
+        "$ref": "schemas/receipt.schema.json"
+      },
+      "toolIds": [
+        "record_escalation"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/ending",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/endingInput"
+      },
+      "response": {
+        "$ref": "schemas/boundary.schema.json#/$defs/endingSession"
+      },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/terminal",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/endingInput"
+      },
+      "response": {
+        "$ref": "schemas/session-terminal.schema.json"
+      },
+      "toolIds": [
+        "end_session"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/lookup-business-fact",
+      "status": "existing_response_extension",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/retrievalInput"
+      },
+      "response": {
+        "$ref": "schemas/boundary.schema.json#/$defs/retrievalResult"
+      },
+      "toolIds": [
+        "retrieve_facts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/services",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/empty"
+      },
+      "response": {
+        "$ref": "schemas/boundary.schema.json#/$defs/retrievalResult"
+      },
+      "toolIds": [
+        "list_services"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/services/details",
+      "status": "planned",
+      "auth": "worker",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/serviceDetailsInput"
+      },
+      "response": {
+        "$ref": "schemas/boundary.schema.json#/$defs/retrievalResult"
+      },
+      "toolIds": [
+        "get_service_details"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/demos/{demoId}",
+      "status": "existing_response_extension",
+      "auth": "anonymous_scope_or_owner",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/empty"
+      },
+      "response": {
+        "$ref": "schemas/boundary.schema.json#/$defs/sessionResponse"
+      },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{resourceId}/history",
+      "status": "planned",
+      "auth": "owner_membership",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/historyQuery"
+      },
+      "response": {
+        "$ref": "schemas/boundary.schema.json#/$defs/ownerHistoryResponse"
+      },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/workspaces/{resourceId}/history",
+      "status": "planned",
+      "auth": "owner_membership",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/historyQuery"
+      },
+      "response": {
+        "$ref": "schemas/boundary.schema.json#/$defs/ownerHistoryResponse"
+      },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/demos/{demoId}/result",
+      "status": "existing_response_extension",
+      "auth": "anonymous_scope_or_owner",
+      "request": {
+        "$ref": "schemas/boundary.schema.json#/$defs/empty"
+      },
+      "response": {
+        "$ref": "schemas/boundary.schema.json#/$defs/demoResultResponse"
+      },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/me/agents",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/meAgentsResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/me/account",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/accountDeletionResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/me/agents",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/createReceptionistInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/agentSummaryResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{stableAgentId}/summary",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/agentSummaryResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{stableAgentId}/name",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/renameInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/renameResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/first-visit",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/firstVisitInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/firstVisitResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/agents/{stableAgentId}",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/agentStatusResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/pause",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/agentStatusResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/resume",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/agentStatusResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{stableAgentId}/knowledge",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/knowledgeView" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/knowledge-updates",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/knowledgeUpdateInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/knowledgeUpdateResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{stableAgentId}/knowledge-updates/{updateId}",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/knowledgeUpdateResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/knowledge-updates/{updateId}/apply",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/knowledgeUpdateApplyInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/knowledgeUpdateResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/knowledge-updates/{updateId}/cancel",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/knowledgeUpdateCancelInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/knowledgeUpdateResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/knowledge-updates/{updateId}/reopen",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/knowledgeUpdateResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/agents/{stableAgentId}/knowledge-sources-selection",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/knowledgeSelectionInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/knowledgeSelectionResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/knowledge-sources/{sourceId}/erase",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/sourceErasureInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/sourceErasureJob" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{stableAgentId}/knowledge-sources/{sourceId}/erase/{jobId}",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/sourceErasureJob" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{stableAgentId}/capabilities",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/capabilitiesResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/agents/{stableAgentId}/capabilities",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/capabilitiesSaveInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/capabilitiesResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/versions/{versionId}/review",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/versionReviewInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/versionReviewResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/tests",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/ownerTestStartInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/ownerTestStartResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{stableAgentId}/tests/{demoId}/result",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/ownerTestResultResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/tests/{demoId}/end",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/ownerTestEndResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{stableAgentId}/conversations",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/pagedQuery" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/conversationListResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{stableAgentId}/conversations/{conversationId}",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/conversationDetailResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/conversations/{conversationId}/outcomes/{recordId}/review",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/outcomeReviewInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/outcomeReviewResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/feedback",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/feedbackInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/feedbackReceipt" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/agents/{stableAgentId}/shares",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/shareCreateInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/shareCreateResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/agents/{stableAgentId}/shares",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/shareListResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/agents/{stableAgentId}/shares/{shareId}",
+      "status": "planned_post_onboarding",
+      "auth": "owner",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/shareRevokeQuery" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/shareRevokeResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/shared/exchange",
+      "status": "planned_post_onboarding",
+      "auth": "guest",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/guestExchangeInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/guestExchangeResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/shared/start",
+      "status": "planned_post_onboarding",
+      "auth": "guest",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/guestEmptyInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/guestStartResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/shared/session",
+      "status": "planned_post_onboarding",
+      "auth": "guest",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/guestSessionResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/shared/reconnect",
+      "status": "planned_post_onboarding",
+      "auth": "guest",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/guestEmptyInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/guestReconnectResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/shared/end",
+      "status": "planned_post_onboarding",
+      "auth": "guest",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/guestEmptyInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/guestEndResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/shared/result",
+      "status": "planned_post_onboarding",
+      "auth": "guest",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/guestResultResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/shared/feedback",
+      "status": "planned_post_onboarding",
+      "auth": "guest",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/feedbackInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/feedbackReceipt" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/builder/feedback",
+      "status": "planned_post_onboarding",
+      "auth": "builder",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/builderFeedbackQuery" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/builderFeedbackSearchResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/builder/feedback/{feedbackId}",
+      "status": "planned_post_onboarding",
+      "auth": "builder",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/builderFeedbackDetailResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/builder/feedback/{feedbackId}",
+      "status": "planned_post_onboarding",
+      "auth": "builder",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/builderStatusInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/builderFeedbackDetailResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "GET",
+      "path": "/v1/builder/session",
+      "status": "planned_post_onboarding",
+      "auth": "builder",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/builderSessionResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/builder/credentials",
+      "status": "planned_post_onboarding",
+      "auth": "builder",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/builderCodeInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/builderCodeResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/builder/credentials/exchange",
+      "status": "planned_post_onboarding",
+      "auth": "builder",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/builderExchangeInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/builderCredentialResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/builder/credentials/current",
+      "status": "planned_post_onboarding",
+      "auth": "builder",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/builderRevokeResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/builder/credentials/{credentialId}",
+      "status": "planned_post_onboarding",
+      "auth": "builder",
+      "request": { "$ref": "schemas/boundary.schema.json#/$defs/empty" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/builderRevokeResponse" },
+      "toolIds": []
+    },
+    {
+      "method": "POST",
+      "path": "/v1/internal/demos/{demoId}/assistant-turns",
+      "status": "planned_post_onboarding",
+      "auth": "worker",
+      "request": { "$ref": "schemas/post-onboarding.schema.json#/$defs/assistantTurnInput" },
+      "response": { "$ref": "schemas/post-onboarding.schema.json#/$defs/assistantTurnResponse" },
+      "toolIds": []
+    }
+  ],
+  "rules": [
+    "Legacy-v1 /turn atomically records finalized caller text then calls Jev. Bob-task-v1 uses /caller-turns and /task; Jev does not run in its live action path. Worker/model cannot submit workflow authority, tenant IDs, timestamps or confirmation booleans.",
+    "caller-turns records authenticated finalized text only and grants no write. Bob-task-v1 (voice agent v2, VA-C1) has no readback or confirmation: task commands are start, record, finish and cancel; any finalized caller turn of the call is accepted and no workflow revision is required. record validates each field on its own, returns accepted and rejected, replays a repeated operationId, and saves a service request with a receipt in the same call that completes it. requests/readback is legacy-only. Legacy confirmation retains its classified-turn binding.",
+    "Every terminal path (task-end, ending, terminal, caller end, deadline, provider failure, share or erasure end) turns each unfinished task with a goal or any field into exactly one Needs review record in outcomes (service_request, appointment_lookup) or cases (complaint), with fields, missingFields, endedBecause and reviewStatus needs_review. The task's noteRecordId makes this idempotent. Record reads add nextStep, computed by server/api/next-step.js.",
+    "Server loads current callerTurnId AND sequence, workflow/field/readback revisions and hash within its transaction. Confirmation turn must follow the readback. Fields corrected after readback invalidate confirmation.",
+    "Workflow events are server-persisted audit records, never an arbitrary worker mutation endpoint. /turn and typed action routes create events.",
+    "Owner history extends existing /v1/agents/:id and /v1/workspaces/:id families. Authenticated membership and claimed resource ownership are mandatory. Never scope by public URL or shared agent alone.",
+    "Escalation preempts intake. Atomically enter ending before a single idempotent case attempt capped at two seconds. Closing audio <=3 seconds or remaining deadline. Termination works on storage or TTS failure; no reconnect.",
+    "When ending or terminal, reject new request mutations. Only reconcile previously committed receipts or the bounded escalation operation bound to that ending transition. Ending/terminal endpoints are idempotent and revision checked.",
+    "No private request/case enters retrieval. Retrieval supported results contain eligible facts and supporting passages from pinned knowledge. Unknown/conflicting/stale facts cannot support answers.",
+    "Operation ID and payload hash bind append-only receipts. Exact retry returns original receipt; changed payload conflicts. Lookup unavailable never means not_found.",
+    "Published schemas are integration interfaces, not evidence the planned routes or transaction checks are implemented.",
+    "GET demo status preserves mode and all existing server timer fields. GET demo result additionally returns append-only requests/cases/lookups/receipts for that scoped demo before claim. appointmentRequest is a nullable legacy unconfirmed draft, never a saved outcome; new UI consumes the outcome arrays. Both responses retain requestId/version in the existing flat HTTP envelope.",
+    "CAS continuity: caller-turn recording does not change workflow revision and returns its current workflowRevision. /turn increments revision once for its committed decision and returns workflow.revision. Each successful fields/readback/confirmation/lookup/request/case action increments revision once and returns the committed workflowRevision; failed or replayed operations return the current state via the conflict or original receipt and never silently advance it.",
+    "Ending atomically advances both session stateRevision and workflow revision; ending response returns both. Its bounded escalation uses that returned expectedWorkflowRevision. Terminal response returns both resulting revisions. Idempotent replay returns the original response unchanged. A stale-revision error includes currentWorkflowRevision/currentStateRevision for explicit reload/reconciliation; it never authorizes blind retry of a changed payload.",
+    "Confirmation response workflowRevision is the committed workflow revision to pass to saveRequestInput.expectedWorkflowRevision. Field/readback revisions track confirmed payload separately and must not be substituted for workflow CAS revision.",
+    "Routes marked planned_post_onboarding are the owner, guest, builder and worker routes of the post-onboarding slice, described by post-onboarding.schema.json. They are implemented behind FRONTLINE_POST_ONBOARDING. Responses are flat like every other route; validate the payload after stripping requestId and version. Owner routes use the fl_auth session and claimed-target ownership, guest routes only the fl_guest capability, builder routes a builder session or a read-only flb_ credential, and the worker route the existing internal worker authentication. GET and DELETE routes with a query describe it in the request ref."
+  ],
+  "responseEnvelope": {
+    "shape": "flat",
+    "metadata": {
+      "$ref": "schemas/boundary.schema.json#/$defs/responseMetadata"
+    },
+    "validation": "HTTP success body merges the response payload and requestId/version metadata, matching existing respond(). Validate metadata first, strip exactly those two keys, then validate the remaining object using the endpoint response ref."
+  }
+}

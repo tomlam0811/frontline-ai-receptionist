@@ -1,0 +1,108 @@
+/* Recreations of real product screens for the landing page. Tokens follow DESIGN.md. */
+.sc {
+  --sc-pine: #1f4d3a;
+  --sc-ink: #2a2119;
+  --sc-soft: #6b6259;
+  --sc-line: #e2dcd3;
+  --sc-mint: #edf4f1;
+  color: var(--sc-ink);
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  text-align: left;
+  user-select: none;
+}
+.sc p, .sc dl, .sc dd, .sc ul, .sc ol { margin: 0; }
+.sc ul, .sc ol { list-style: none; padding: 0; }
+.sc-card { background: #fff; border: 1px solid var(--sc-line); border-radius: 18px; padding: clamp(20px, 3vw, 30px); }
+.sc-title--first { margin-top: 0 !important; }
+.sc-fieldlabel { font-size: 13px; font-weight: 700; margin-bottom: 8px !important; }
+.sc-title { font-size: 18px; font-weight: 620; letter-spacing: -.02em; line-height: 1.25; margin-top: 8px !important; }
+.sc-heading { font-size: clamp(22px, 2.6vw, 28px); font-weight: 620; letter-spacing: -.03em; line-height: 1.15; }
+.sc-body { color: var(--sc-ink); font-size: 15px; line-height: 1.55; margin-top: 12px !important; }
+.sc-muted { color: var(--sc-soft); font-size: 13px; }
+.sc-skeleton { background: #ece6dc; border-radius: 5px; display: block; height: 10px; }
+.sc-button { align-items: center; background: var(--sc-pine); border-radius: 9px; color: #fff; display: inline-flex; font-size: 14px; font-weight: 650; justify-content: center; margin-top: 20px; min-height: 44px; padding: 0 18px; }
+.sc-avatar { align-items: center; background: #dce7e0; border-radius: 14px; color: var(--sc-pine); display: inline-flex; flex: none; font-size: 30px; font-weight: 620; height: 58px; justify-content: center; width: 58px; }
+.sc-avatar--small { border-radius: 10px; height: 36px; position: relative; width: 36px; }
+.sc-avatar--small::after { background: var(--sc-pine); border-radius: 50%; content: ""; height: 10px; width: 10px; }
+.sc-identity { align-items: center; display: flex; gap: 16px; }
+
+/* Call screen */
+.sc-call__label { color: var(--sc-pine); font-size: 12px; font-weight: 700; letter-spacing: .09em; margin-bottom: 12px !important; text-transform: uppercase; }
+.sc-call__panel { background: #2a2119; border-radius: 18px; color: #fff; padding: clamp(24px, 4vw, 38px); }
+.sc-call__state { align-items: center; display: flex; font-size: clamp(22px, 2.6vw, 28px); font-weight: 600; gap: 13px; letter-spacing: -.02em; line-height: 1.2; }
+.sc-call__light { background: #a8dbc0; border-radius: 50%; flex: none; height: 12px; width: 12px; }
+.sc-wave { align-items: center; display: flex; gap: 4px; height: 76px; justify-content: space-between; margin-top: 28px; }
+.sc-wave span { background: #a8dbc0; border-radius: 3px; flex: 1 1 0; height: 100%; max-width: 6px; transform: scaleY(var(--hi)); }
+.sc-call__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.sc-call__button { align-items: center; border: 1px solid #8a7d6e; border-radius: 10px; color: #fff; display: inline-flex; font-size: 14px; font-weight: 700; min-height: 44px; padding: 0 18px; }
+.sc-call__button--end { background: #fff; border-color: #fff; color: #2a2119; }
+
+/* Request card */
+.sc-request dl { margin-top: 14px; }
+.sc-request dl > div { align-items: center; border-top: 1px solid #efe9df; display: flex; gap: 16px; justify-content: space-between; padding: 11px 0; }
+.sc-request dt { color: var(--sc-soft); font-size: 13px; }
+.sc-request dd { display: flex; flex: 1; justify-content: flex-end; }
+.sc-request dd .sc-skeleton { max-width: 210px; }
+
+/* Captions */
+.sc-captions ol { display: grid; gap: 14px; margin-top: 18px !important; }
+.sc-captions li { border-top: 1px solid #e6ece8; display: grid; gap: 12px; grid-template-columns: 52px minmax(0, 1fr); padding-top: 14px; }
+.sc-captions li strong { color: var(--sc-pine); font-size: 14px; }
+.sc-captions li p { display: grid; gap: 8px; padding-top: 4px; }
+
+/* Website reading */
+.sc-input { border: 1px solid #ddd2c3; border-radius: 10px; color: #9a9088; font-size: 15px; padding: 15px 18px; }
+.sc-reading__head { align-items: center; display: flex; gap: 14px; margin-top: 24px; }
+.sc-reading__head .sc-title { margin-top: 0 !important; }
+.sc-reading ul { display: grid; gap: 12px; margin-top: 20px !important; }
+.sc-reading li { align-items: center; color: var(--sc-ink); display: flex; font-size: 15px; gap: 12px; line-height: 1.4; }
+.sc-tick { display: inline-grid; flex: none; height: 22px; place-items: center; width: 22px; }
+.sc-tick > * { grid-area: 1 / 1; }
+.sc-tick i { background: #dce7e0; border-radius: 50%; height: 10px; width: 10px; }
+.sc-tick b { align-items: center; background: var(--sc-pine); border-radius: 50%; color: #fff; display: flex; font-size: 12px; height: 22px; justify-content: center; width: 22px; }
+.sc-reading li:last-child .sc-tick b { opacity: 0; }
+.sc-reading li:last-child .sc-tick i { background: var(--sc-pine); }
+
+/* Save, add, review, share */
+.sc-add ul { display: grid; gap: 10px; margin-top: 20px !important; }
+.sc-add li { align-items: flex-start; border: 1px solid var(--sc-line); border-radius: 12px; display: flex; gap: 14px; padding: 14px 16px; }
+.sc-dot { border: 2px solid #b9b0a5; border-radius: 50%; flex: none; height: 16px; margin-top: 2px; width: 16px; }
+.sc-add strong { display: block; font-size: 15px; font-weight: 650; }
+.sc-add small { color: var(--sc-soft); display: block; font-size: 13px; line-height: 1.4; margin-top: 3px; }
+.sc-candidate { background: #faf8f5; border: 1px solid var(--sc-line); border-radius: 12px; display: grid; gap: 10px; margin-top: 18px; padding: 16px; }
+.sc-candidate p { align-items: center; display: flex; gap: 10px; }
+.sc-tag { background: var(--sc-mint); border-radius: 6px; color: var(--sc-pine); font-size: 12px; font-weight: 700; padding: 3px 8px; }
+.sc-choices { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 6px; }
+.sc-choices span { align-items: center; display: inline-flex; font-size: 14px; gap: 8px; }
+.sc-choices i { border: 1.5px solid #8a7d6e; border-radius: 50%; height: 16px; width: 16px; }
+.sc-choices .is-on i { background: var(--sc-pine); border-color: var(--sc-pine); box-shadow: inset 0 0 0 3px #fff; }
+
+/* Motion, only after the page script has marked the scene as on screen. Static state stays complete. */
+@keyframes sc-wave { from { transform: scaleY(var(--lo)); } to { transform: scaleY(var(--hi)); } }
+@keyframes sc-line-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes sc-tick-done { to { opacity: 1; } }
+@keyframes sc-tick-hide { to { opacity: 0; } }
+@keyframes sc-tick-pulse { 50% { opacity: .35; } }
+@keyframes sc-mark-pulse { 50% { opacity: .4; transform: scale(.82); } }
+
+.landing-motion .sc-call.is-live .sc-wave span { animation: sc-wave var(--dur) ease-in-out var(--delay) infinite alternate; }
+.landing-motion .sc-captions.is-live li { animation: sc-line-in .5s ease both; }
+.landing-motion .sc-captions.is-live li:nth-child(2) { animation-delay: .9s; }
+.landing-motion .sc-captions.is-live li:nth-child(3) { animation-delay: 1.8s; }
+.landing-motion .sc-reading.is-live .sc-tick b { opacity: 0; animation: sc-tick-done .3s ease forwards; }
+.landing-motion .sc-reading.is-live .sc-tick i { animation: sc-tick-hide .3s ease forwards; }
+.landing-motion .sc-reading.is-live .sc-avatar--small::after { animation: sc-mark-pulse 1.8s ease-in-out infinite; }
+.landing-motion .sc-reading.is-live li:nth-child(1) * { animation-delay: .5s; }
+.landing-motion .sc-reading.is-live li:nth-child(2) * { animation-delay: 1.3s; }
+.landing-motion .sc-reading.is-live li:nth-child(3) * { animation-delay: 2.1s; }
+.landing-motion .sc-reading.is-live li:last-child .sc-tick b { animation: none; opacity: 0; }
+.landing-motion .sc-reading.is-live li:last-child .sc-tick i { animation: sc-tick-pulse 1.4s ease-in-out 2.6s infinite; opacity: 1; background: var(--sc-pine); }
+
+@media (max-width: 520px) {
+  .sc-request dl > div { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .sc-request dd { justify-content: flex-start; width: 100%; }
+  .sc-captions li { grid-template-columns: 1fr; gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sc *, .sc *::before, .sc *::after { animation: none !important; transition: none !important; }
+}

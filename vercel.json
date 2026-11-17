@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Permissions-Policy", "value": "microphone=(self),camera=(),geolocation=()" }
+      ]
+    }
+  ],
+  "redirects": [
+    { "source": "/:path(.*)", "has": [{ "type": "host", "value": "frontline.preview.frontline.example" }], "destination": "https://web.staging.frontline.example/:path", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/v1/:path*", "destination": "https://api.staging.frontline.example/v1/:path*" },
+    { "source": "/((?!assets/|api/inspect$|healthz$).*)", "destination": "/index.html" }
+  ]
+}

@@ -1,0 +1,1860 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://frontline.local/contracts/v1/boundary.schema.json",
+  "$defs": {
+    "empty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {}
+    },
+    "requestFields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "callerName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "contactPhone": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "contactEmail": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "serviceNeed": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "propertyCity": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "propertyType": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "company": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "preferredDay": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "preferredWindow": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "timezone": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "recurrence": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "recordFields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "callerName": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "contactPhone": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "contactEmail": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "serviceNeed": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "propertyCity": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "propertyState": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "cityConfirmed": { "type": "boolean" },
+        "phoneConfirmed": { "type": "boolean" },
+        "phoneAsGiven": { "type": "boolean" },
+        "summary": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "appointmentAction": { "enum": ["cancel", "reschedule"] },
+        "noContact": { "type": "boolean" },
+        "propertyType": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "company": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "preferredDay": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "preferredWindow": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "timezone": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "recurrence": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "notes": { "type": "string", "minLength": 1, "maxLength": 500 }
+      }
+    },
+    "completeRequestFields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "callerName",
+        "serviceNeed",
+        "propertyCity"
+      ],
+      "properties": {
+        "callerName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "contactPhone": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "contactEmail": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "serviceNeed": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "propertyCity": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "propertyType": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "company": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "preferredDay": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "preferredWindow": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "timezone": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "recurrence": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "contactPhone"
+          ]
+        },
+        {
+          "required": [
+            "contactEmail"
+          ]
+        }
+      ]
+    },
+    "callerTurnInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clientTurnId",
+        "text",
+        "finalized"
+      ],
+      "properties": {
+        "clientTurnId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+        "finalized": {
+          "const": true
+        }
+      }
+    },
+    "finalizedCallerTurn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "callerTurnId",
+        "clientTurnId",
+        "demoId",
+        "sequence",
+        "text",
+        "finalized",
+        "recordedAt",
+        "workflowRevision"
+      ],
+      "properties": {
+        "callerTurnId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "clientTurnId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "demoId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+        "finalized": {
+          "const": true
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "workflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "workflowId",
+        "dialogueAct",
+        "confidence",
+        "escalationReason",
+        "model"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "common.schema.json#/$defs/classificationStatus"
+        },
+        "workflowId": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/workflowId"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dialogueAct": {
+          "$ref": "common.schema.json#/$defs/dialogueAct"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "escalationReason": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/escalationReason"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "model": {
+          "const": "jev-1.13.0"
+        }
+      }
+    },
+    "turnInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clientTurnId",
+        "text",
+        "finalized",
+        "expectedWorkflowRevision"
+      ],
+      "properties": {
+        "clientTurnId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+        "finalized": {
+          "const": true
+        },
+        "expectedWorkflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "turnDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "callerTurn",
+        "classification",
+        "workflow",
+        "nextAction",
+        "promptContext"
+      ],
+      "properties": {
+        "callerTurn": {
+          "$ref": "boundary.schema.json#/$defs/finalizedCallerTurn"
+        },
+        "classification": {
+          "$ref": "boundary.schema.json#/$defs/classification"
+        },
+        "workflow": {
+          "$ref": "workflow.schema.json#/$defs/state"
+        },
+        "nextAction": {
+          "enum": [
+            "answer",
+            "clarify",
+            "collect",
+            "readback",
+            "confirm",
+            "lookup",
+            "save_case",
+            "escalate",
+            "close"
+          ]
+        },
+        "promptContext": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        }
+      }
+    },
+    "validateRequestInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedWorkflowRevision",
+        "callerTurnId",
+        "fields"
+      ],
+      "properties": {
+        "expectedWorkflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "callerTurnId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "fields": {
+          "$ref": "boundary.schema.json#/$defs/requestFields"
+        }
+      }
+    },
+    "fieldValidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "workflowInstanceId",
+        "fieldRevision",
+        "fields",
+        "missingFields",
+        "payloadHash",
+        "workflowRevision"
+      ],
+      "properties": {
+        "workflowInstanceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "fieldRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "fields": {
+          "$ref": "boundary.schema.json#/$defs/requestFields"
+        },
+        "missingFields": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "callerName",
+              "contactPhone",
+              "contactEmail",
+              "serviceNeed",
+              "propertyCity",
+              "propertyType",
+              "company",
+              "preferredDay",
+              "preferredWindow",
+              "timezone",
+              "recurrence",
+              "notes"
+            ]
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "payloadHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "workflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "readbackInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedWorkflowRevision",
+        "fieldRevision",
+        "payloadHash"
+      ],
+      "properties": {
+        "expectedWorkflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "fieldRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "payloadHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "readback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "workflowInstanceId",
+        "fieldRevision",
+        "readbackRevision",
+        "payloadHash",
+        "fields",
+        "afterCallerTurnSequence",
+        "serverRecordedAt",
+        "workflowRevision"
+      ],
+      "properties": {
+        "workflowInstanceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "fieldRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "readbackRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "payloadHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "fields": {
+          "$ref": "boundary.schema.json#/$defs/completeRequestFields"
+        },
+        "afterCallerTurnSequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "serverRecordedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "workflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "confirmationInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "callerTurnId",
+        "fieldRevision",
+        "readbackRevision",
+        "payloadHash",
+        "expectedWorkflowRevision"
+      ],
+      "properties": {
+        "callerTurnId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "fieldRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "readbackRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "payloadHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "expectedWorkflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "confirmationState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "workflowInstanceId",
+        "fieldRevision",
+        "readbackRevision",
+        "readbackPayloadHash",
+        "latestCallerTurnId",
+        "latestCallerTurnSequence",
+        "latestCallerDialogueAct",
+        "latestCallerClassificationStatus",
+        "readbackAfterCallerTurnSequence"
+      ],
+      "properties": {
+        "workflowInstanceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "fieldRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "readbackRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "readbackPayloadHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "latestCallerTurnId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "latestCallerTurnSequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "latestCallerDialogueAct": {
+          "$ref": "common.schema.json#/$defs/dialogueAct"
+        },
+        "latestCallerClassificationStatus": {
+          "$ref": "common.schema.json#/$defs/classificationStatus"
+        },
+        "readbackAfterCallerTurnSequence": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "saveRequestInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operationId",
+        "expectedWorkflowRevision",
+        "confirmationId"
+      ],
+      "properties": {
+        "operationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "expectedWorkflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "confirmationId": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "lookupInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operationId",
+        "expectedWorkflowRevision",
+        "callerName",
+        "action"
+      ],
+      "properties": {
+        "operationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "expectedWorkflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "callerName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "action": {
+          "enum": [
+            "cancel",
+            "reschedule"
+          ]
+        }
+      }
+    },
+    "caseContext": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "callerTurnIds"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 3000
+        },
+        "callerTurnIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "minItems": 1,
+          "maxItems": 50,
+          "uniqueItems": true
+        },
+        "callerName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "contactPhone": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "contactEmail": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 320
+        }
+      }
+    },
+    "saveCaseInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operationId",
+        "expectedWorkflowRevision",
+        "kind",
+        "context"
+      ],
+      "properties": {
+        "operationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "expectedWorkflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "kind": {
+          "const": "complaint"
+        },
+        "context": {
+          "$ref": "boundary.schema.json#/$defs/caseContext"
+        }
+      }
+    },
+    "escalationInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operationId",
+        "expectedWorkflowRevision",
+        "reason",
+        "context"
+      ],
+      "properties": {
+        "operationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "expectedWorkflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "reason": {
+          "$ref": "common.schema.json#/$defs/escalationReason"
+        },
+        "context": {
+          "$ref": "boundary.schema.json#/$defs/caseContext"
+        }
+      }
+    },
+    "endingInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedStateRevision",
+        "reason"
+      ],
+      "properties": {
+        "expectedStateRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "reason": {
+          "$ref": "common.schema.json#/$defs/terminalReason"
+        }
+      }
+    },
+    "endingSession": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sessionId",
+        "status",
+        "reason",
+        "stateRevision",
+        "endingAt",
+        "reconnectAllowed",
+        "closeDeadlineAt",
+        "workflowRevision"
+      ],
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "const": "ending"
+        },
+        "reason": {
+          "$ref": "common.schema.json#/$defs/terminalReason"
+        },
+        "stateRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "endingAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reconnectAllowed": {
+          "const": false
+        },
+        "closeDeadlineAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "workflowRevision": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "sessionGuard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "phase"
+      ],
+      "properties": {
+        "status": {
+          "const": "active"
+        },
+        "phase": {
+          "enum": [
+            "interpreting",
+            "collecting",
+            "clarifying",
+            "reading_back",
+            "awaiting_confirmation",
+            "operating",
+            "completed"
+          ]
+        }
+      }
+    },
+    "retrievalInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "query"
+      ],
+      "properties": {
+        "query": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/factGroup"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "serviceId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "locationId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "retrievalResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "knowledgeRevisionId",
+        "status",
+        "facts",
+        "passages"
+      ],
+      "properties": {
+        "knowledgeRevisionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "enum": [
+            "supported",
+            "insufficient_information",
+            "unavailable"
+          ]
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "$ref": "source-knowledge.schema.json#/$defs/eligibleFact"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "passages": {
+          "type": "array",
+          "items": {
+            "$ref": "source-knowledge.schema.json#/$defs/classifiedPassage"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        }
+      }
+    },
+    "serviceDetailsInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "serviceId"
+      ],
+      "properties": {
+        "serviceId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "requestRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recordId",
+        "demoId",
+        "workflowInstanceId",
+        "knowledgeRevisionId",
+        "profileRevisionId",
+        "agentVersionId",
+        "fields",
+        "confirmation",
+        "receiptId",
+        "savedAt",
+        "bookingState",
+        "deliveryState"
+      ],
+      "properties": {
+        "recordId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "demoId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "workflowInstanceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "knowledgeRevisionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "profileRevisionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "kind": { "enum": ["service_request", "appointment_lookup"] },
+        "taskId": { "type": "string", "format": "uuid" },
+        "goal": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "fields": {
+          "$ref": "boundary.schema.json#/$defs/recordFields"
+        },
+        "confirmation": {
+          "anyOf": [{ "$ref": "confirmation.schema.json" }, { "type": "null" }]
+        },
+        "receiptId": {
+          "anyOf": [{ "type": "string", "format": "uuid" }, { "type": "null" }]
+        },
+        "lookup": { "anyOf": [{ "$ref": "appointment-lookup.schema.json" }, { "type": "null" }] },
+        "reviewStatus": { "enum": ["needs_review", "done"] },
+        "reviewedAt": { "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+        "missingFields": { "type": "array", "items": { "type": "string", "maxLength": 100 }, "maxItems": 20 },
+        "endedBecause": { "anyOf": [{ "$ref": "common.schema.json#/$defs/terminalReason" }, { "type": "null" }] },
+        "nextStep": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "savedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "bookingState": {
+          "const": "not_booked"
+        },
+        "deliveryState": {
+          "const": "not_sent"
+        }
+      }
+    },
+    "caseRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recordId",
+        "demoId",
+        "workflowInstanceId",
+        "kind",
+        "context",
+        "escalationReason",
+        "receiptId",
+        "savedAt",
+        "deliveryState"
+      ],
+      "properties": {
+        "recordId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "demoId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "workflowInstanceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "kind": {
+          "enum": [
+            "complaint",
+            "escalation"
+          ]
+        },
+        "taskId": { "type": "string", "format": "uuid" },
+        "goal": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "fields": { "$ref": "boundary.schema.json#/$defs/recordFields" },
+        "context": {
+          "$ref": "boundary.schema.json#/$defs/caseContext"
+        },
+        "reviewStatus": { "enum": ["needs_review", "done"] },
+        "reviewedAt": { "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+        "missingFields": { "type": "array", "items": { "type": "string", "maxLength": 100 }, "maxItems": 20 },
+        "endedBecause": { "anyOf": [{ "$ref": "common.schema.json#/$defs/terminalReason" }, { "type": "null" }] },
+        "nextStep": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "escalationReason": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/escalationReason"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "receiptId": {
+          "anyOf": [{ "type": "string", "format": "uuid" }, { "type": "null" }]
+        },
+        "savedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "deliveryState": {
+          "const": "not_sent"
+        }
+      }
+    },
+    "lookupOutcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "demoId",
+        "workflowInstanceId",
+        "action",
+        "result",
+        "recordedAt"
+      ],
+      "properties": {
+        "demoId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "workflowInstanceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "action": {
+          "enum": [
+            "cancel",
+            "reschedule"
+          ]
+        },
+        "result": {
+          "$ref": "appointment-lookup.schema.json"
+        },
+        "recordedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ownerHistoryResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resourceKind",
+        "resourceId",
+        "requests",
+        "cases",
+        "lookups",
+        "receipts",
+        "nextCursor"
+      ],
+      "properties": {
+        "resourceKind": {
+          "enum": [
+            "agent",
+            "workspace"
+          ]
+        },
+        "resourceId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "requests": {
+          "type": "array",
+          "items": {
+            "$ref": "boundary.schema.json#/$defs/requestRecord"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "cases": {
+          "type": "array",
+          "items": {
+            "$ref": "boundary.schema.json#/$defs/caseRecord"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "lookups": {
+          "type": "array",
+          "items": {
+            "$ref": "boundary.schema.json#/$defs/lookupOutcome"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "receipts": {
+          "type": "array",
+          "items": {
+            "$ref": "receipt.schema.json"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "callSummaries": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/callSummary" },
+          "maxItems": 50
+        },
+        "nextCursor": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "historyQuery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [],
+      "properties": {
+        "cursor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        }
+      }
+    },
+    "sessionResponse": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "demoId",
+            "state",
+            "stateRevision",
+            "reconnectAllowed",
+            "terminalReason",
+            "mode",
+            "setupDeadlineAt",
+            "startedAt",
+            "softCloseAt",
+            "hardEndAt",
+            "appointmentRequest",
+            "expiresAt"
+          ],
+          "properties": {
+            "demoId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "state": {
+              "enum": [
+                "waiting",
+                "active"
+              ]
+            },
+            "stateRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "reconnectAllowed": {
+              "const": true
+            },
+            "terminalReason": {
+              "type": "null"
+            },
+            "mode": {
+              "enum": [
+                "business_demo",
+                "frontline_qa"
+              ]
+            },
+            "setupDeadlineAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "startedAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "softCloseAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hardEndAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "appointmentRequest": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/legacyAppointmentRequest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "demoId",
+            "state",
+            "stateRevision",
+            "reconnectAllowed",
+            "terminalReason",
+            "mode",
+            "setupDeadlineAt",
+            "startedAt",
+            "softCloseAt",
+            "hardEndAt",
+            "appointmentRequest",
+            "expiresAt"
+          ],
+          "properties": {
+            "demoId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "state": {
+              "enum": [
+                "ending",
+                "ended",
+                "failed"
+              ]
+            },
+            "stateRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "reconnectAllowed": {
+              "const": false
+            },
+            "terminalReason": {
+              "$ref": "common.schema.json#/$defs/terminalReason"
+            },
+            "mode": {
+              "enum": [
+                "business_demo",
+                "frontline_qa"
+              ]
+            },
+            "setupDeadlineAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "startedAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "softCloseAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hardEndAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "appointmentRequest": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/legacyAppointmentRequest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      ]
+    },
+    "legacyAppointmentRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "demoId",
+        "preparationId",
+        "knowledgeRevisionId",
+        "agentVersionId",
+        "schemaVersion",
+        "operationId",
+        "gatheredFields",
+        "missingFields",
+        "callerConfirmed",
+        "simulation",
+        "deliveryState",
+        "bookingState",
+        "updatedAt",
+        "expiresAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "demoId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "preparationId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "knowledgeRevisionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "agentVersionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "schemaVersion": {
+          "const": "1.0"
+        },
+        "operationId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "gatheredFields": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {
+            "service": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "preferredDate": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "preferredTime": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "timezone": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "location": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "contactName": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "contactPhone": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "contactEmail": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "notes": {
+              "type": "string",
+              "maxLength": 500
+            }
+          }
+        },
+        "missingFields": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "service",
+              "preferredDate",
+              "preferredTime",
+              "timezone",
+              "location",
+              "contactName",
+              "contactPhone",
+              "contactEmail",
+              "notes"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "callerConfirmed": {
+          "const": false
+        },
+        "simulation": {
+          "const": true
+        },
+        "deliveryState": {
+          "const": "not_sent"
+        },
+        "bookingState": {
+          "const": "not_booked"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "callSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["demoId", "mode", "endedAt", "callerTurnCount", "callerExcerpts", "tasks"],
+      "properties": {
+        "demoId": { "type": "string", "format": "uuid" },
+        "mode": { "enum": ["business_demo", "frontline_qa"] },
+        "endedAt": { "anyOf": [{ "type": "string", "format": "date-time" }, { "type": "null" }] },
+        "callerTurnCount": { "type": "integer", "minimum": 0 },
+        "callerExcerpts": { "type": "array", "items": { "type": "string", "maxLength": 160 }, "maxItems": 3 },
+        "tasks": { "type": "array", "items": { "$ref": "#/$defs/callTaskSummary" }, "maxItems": 10 }
+      }
+    },
+    "callTaskSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "goal", "status", "fields", "missingFields", "saved", "lookupRecorded"],
+      "properties": {
+        "kind": { "enum": ["service_request", "appointment_lookup", "complaint"] },
+        "goal": { "type": "string", "maxLength": 160 },
+        "status": { "enum": ["running", "succeeded", "stopped", "failed", "needs_input", "awaiting_confirmation", "handoff_requested", "cancelled"] },
+        "fields": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "callerName": { "type": "string", "maxLength": 160 }, "contactPhone": { "type": "string", "maxLength": 160 },
+            "contactEmail": { "type": "string", "maxLength": 160 }, "serviceNeed": { "type": "string", "maxLength": 160 },
+            "propertyCity": { "type": "string", "maxLength": 160 }, "propertyState": { "type": "string", "maxLength": 160 },
+            "summary": { "type": "string", "maxLength": 160 }, "appointmentAction": { "type": "string", "maxLength": 160 },
+            "propertyType": { "type": "string", "maxLength": 160 },
+            "company": { "type": "string", "maxLength": 160 }, "preferredDay": { "type": "string", "maxLength": 160 },
+            "preferredWindow": { "type": "string", "maxLength": 160 }, "timezone": { "type": "string", "maxLength": 160 },
+            "recurrence": { "type": "string", "maxLength": 160 }, "notes": { "type": "string", "maxLength": 160 }
+          }
+        },
+        "missingFields": { "type": "array", "items": { "enum": ["callerName", "contactPhone", "contactEmail", "serviceNeed", "propertyCity", "propertyState", "summary", "appointmentAction", "propertyType", "company", "preferredDay", "preferredWindow", "timezone", "recurrence", "notes"] }, "maxItems": 15 },
+        "saved": { "type": "boolean" },
+        "lookupRecorded": { "type": "boolean" },
+        "noted": { "type": "boolean", "description": "A Needs review note exists for this task." }
+      }
+    },
+    "demoResultResponse": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "demoId",
+            "state",
+            "stateRevision",
+            "reconnectAllowed",
+            "terminalReason",
+            "mode",
+            "setupDeadlineAt",
+            "startedAt",
+            "softCloseAt",
+            "hardEndAt",
+            "appointmentRequest",
+            "expiresAt",
+            "requests",
+            "cases",
+            "lookups",
+            "receipts"
+          ],
+          "properties": {
+            "demoId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "state": {
+              "enum": [
+                "waiting",
+                "active"
+              ]
+            },
+            "stateRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "reconnectAllowed": {
+              "const": true
+            },
+            "terminalReason": {
+              "type": "null"
+            },
+            "mode": {
+              "enum": [
+                "business_demo",
+                "frontline_qa"
+              ]
+            },
+            "setupDeadlineAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "startedAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "softCloseAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hardEndAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "appointmentRequest": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/legacyAppointmentRequest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "requests": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/requestRecord"
+              },
+              "maxItems": 100
+            },
+            "cases": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/caseRecord"
+              },
+              "maxItems": 100
+            },
+            "lookups": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/lookupOutcome"
+              },
+              "maxItems": 100
+            },
+            "receipts": {
+              "type": "array",
+              "items": {
+                "$ref": "receipt.schema.json"
+              },
+              "maxItems": 100
+            },
+            "callSummary": {
+              "$ref": "#/$defs/callSummary"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "demoId",
+            "state",
+            "stateRevision",
+            "reconnectAllowed",
+            "terminalReason",
+            "mode",
+            "setupDeadlineAt",
+            "startedAt",
+            "softCloseAt",
+            "hardEndAt",
+            "appointmentRequest",
+            "expiresAt",
+            "requests",
+            "cases",
+            "lookups",
+            "receipts"
+          ],
+          "properties": {
+            "demoId": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "state": {
+              "enum": [
+                "ending",
+                "ended",
+                "failed"
+              ]
+            },
+            "stateRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "reconnectAllowed": {
+              "const": false
+            },
+            "terminalReason": {
+              "$ref": "common.schema.json#/$defs/terminalReason"
+            },
+            "mode": {
+              "enum": [
+                "business_demo",
+                "frontline_qa"
+              ]
+            },
+            "setupDeadlineAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "startedAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "softCloseAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hardEndAt": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "appointmentRequest": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/legacyAppointmentRequest"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "expiresAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "requests": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/requestRecord"
+              },
+              "maxItems": 100
+            },
+            "cases": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/caseRecord"
+              },
+              "maxItems": 100
+            },
+            "lookups": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/lookupOutcome"
+              },
+              "maxItems": 100
+            },
+            "receipts": {
+              "type": "array",
+              "items": {
+                "$ref": "receipt.schema.json"
+              },
+              "maxItems": 100
+            },
+            "callSummary": {
+              "$ref": "#/$defs/callSummary"
+            }
+          }
+        }
+      ]
+    },
+    "responseMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requestId",
+        "version"
+      ],
+      "properties": {
+        "requestId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "version": {
+          "const": "1.0"
+        }
+      }
+    }
+  }
+}

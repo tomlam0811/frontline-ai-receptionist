@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://frontline.local/contracts/v1/session-terminal.schema.json",
+  "title": "Terminal session state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sessionId",
+    "status",
+    "reason",
+    "stateRevision",
+    "terminalAt",
+    "reconnectAllowed",
+    "workflowRevision"
+  ],
+  "properties": {
+    "sessionId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "status": {
+      "const": "terminal"
+    },
+    "reason": {
+      "$ref": "common.schema.json#/$defs/terminalReason"
+    },
+    "stateRevision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "terminalAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reconnectAllowed": {
+      "const": false
+    },
+    "workflowRevision": {
+      "type": "integer",
+      "minimum": 1
+    }
+  }
+}

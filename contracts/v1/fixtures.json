@@ -1,0 +1,744 @@
+{
+  "cases": [
+    {
+      "name": "workflow",
+      "reference": "workflow.schema.json#/$defs/state",
+      "value": {
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "workflowId": "WF-03",
+        "phase": "collecting",
+        "revision": 1,
+        "allowedToolIds": [
+          "validate_request"
+        ]
+      },
+      "valid": true
+    },
+    {
+      "name": "invalid workflow phase",
+      "reference": "workflow.schema.json#/$defs/state",
+      "value": {
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "workflowId": "WF-03",
+        "phase": "nonsense",
+        "revision": 1,
+        "allowedToolIds": [
+          "validate_request"
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "invalid workflow revision",
+      "reference": "workflow.schema.json#/$defs/state",
+      "value": {
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "workflowId": "WF-03",
+        "phase": "collecting",
+        "revision": 0,
+        "allowedToolIds": [
+          "validate_request"
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "invalid workflow allowedToolIds",
+      "reference": "workflow.schema.json#/$defs/state",
+      "value": {
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "workflowId": "WF-03",
+        "phase": "collecting",
+        "revision": 1,
+        "allowedToolIds": [
+          "save_request",
+          "save_request"
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "invalid workflow workflowInstanceId",
+      "reference": "workflow.schema.json#/$defs/state",
+      "value": {
+        "workflowInstanceId": "bad-id",
+        "workflowId": "WF-03",
+        "phase": "collecting",
+        "revision": 1,
+        "allowedToolIds": [
+          "validate_request"
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "lookup not_found",
+      "reference": "appointment-lookup.schema.json",
+      "value": {
+        "kind": "not_found",
+        "lookupId": "00000000-0000-4000-8000-000000000001",
+        "workflowRevision": 5
+      },
+      "valid": true
+    },
+    {
+      "name": "lookup leaks not_found",
+      "reference": "appointment-lookup.schema.json",
+      "value": {
+        "kind": "not_found",
+        "lookupId": "00000000-0000-4000-8000-000000000001",
+        "appointment": {
+          "name": "private"
+        },
+        "workflowRevision": 5
+      },
+      "valid": false
+    },
+    {
+      "name": "lookup verification_required",
+      "reference": "appointment-lookup.schema.json",
+      "value": {
+        "kind": "verification_required",
+        "lookupId": "00000000-0000-4000-8000-000000000001",
+        "workflowRevision": 5
+      },
+      "valid": true
+    },
+    {
+      "name": "lookup leaks verification_required",
+      "reference": "appointment-lookup.schema.json",
+      "value": {
+        "kind": "verification_required",
+        "lookupId": "00000000-0000-4000-8000-000000000001",
+        "appointment": {
+          "name": "private"
+        },
+        "workflowRevision": 5
+      },
+      "valid": false
+    },
+    {
+      "name": "lookup unavailable",
+      "reference": "appointment-lookup.schema.json",
+      "value": {
+        "kind": "unavailable",
+        "lookupId": "00000000-0000-4000-8000-000000000001",
+        "reason": "timeout",
+        "workflowRevision": 5
+      },
+      "valid": true
+    },
+    {
+      "name": "lookup leaks unavailable",
+      "reference": "appointment-lookup.schema.json",
+      "value": {
+        "kind": "unavailable",
+        "lookupId": "00000000-0000-4000-8000-000000000001",
+        "reason": "timeout",
+        "appointment": {
+          "name": "private"
+        },
+        "workflowRevision": 5
+      },
+      "valid": false
+    },
+    {
+      "name": "receipt saved",
+      "reference": "receipt.schema.json",
+      "value": {
+        "receiptId": "00000000-0000-4000-8000-000000000004",
+        "operationId": "00000000-0000-4000-8000-000000000005",
+        "operationKind": "request",
+        "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "workflowRevision": 1,
+        "recordedAt": "2026-09-24T00:00:00Z",
+        "sequence": 1,
+        "outcome": "saved",
+        "recordId": "00000000-0000-4000-8000-000000000007"
+      },
+      "valid": true
+    },
+    {
+      "name": "receipt missing discriminator field saved",
+      "reference": "receipt.schema.json",
+      "value": {
+        "receiptId": "00000000-0000-4000-8000-000000000004",
+        "operationId": "00000000-0000-4000-8000-000000000005",
+        "operationKind": "request",
+        "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "workflowRevision": 1,
+        "recordedAt": "2026-09-24T00:00:00Z",
+        "sequence": 1,
+        "outcome": "saved"
+      },
+      "valid": false
+    },
+    {
+      "name": "receipt failed",
+      "reference": "receipt.schema.json",
+      "value": {
+        "receiptId": "00000000-0000-4000-8000-000000000004",
+        "operationId": "00000000-0000-4000-8000-000000000005",
+        "operationKind": "request",
+        "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "workflowRevision": 1,
+        "recordedAt": "2026-09-24T00:00:00Z",
+        "sequence": 1,
+        "outcome": "failed",
+        "failureCode": "storage_error"
+      },
+      "valid": true
+    },
+    {
+      "name": "receipt missing discriminator field failed",
+      "reference": "receipt.schema.json",
+      "value": {
+        "receiptId": "00000000-0000-4000-8000-000000000004",
+        "operationId": "00000000-0000-4000-8000-000000000005",
+        "operationKind": "request",
+        "payloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "workflowRevision": 1,
+        "recordedAt": "2026-09-24T00:00:00Z",
+        "sequence": 1,
+        "outcome": "failed"
+      },
+      "valid": false
+    },
+    {
+      "name": "confirmation",
+      "reference": "confirmation.schema.json",
+      "value": {
+        "confirmationId": "00000000-0000-4000-8000-000000000002",
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "callerTurnId": "00000000-0000-4000-8000-000000000003",
+        "callerTurnSequence": 7,
+        "fieldRevision": 4,
+        "readbackRevision": 4,
+        "readbackPayloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "serverRecordedAt": "2026-09-24T00:00:00Z",
+        "dialogueAct": "affirm",
+        "workflowRevision": 5
+      },
+      "valid": true
+    },
+    {
+      "name": "confirmation invalid callerTurnSequence",
+      "reference": "confirmation.schema.json",
+      "value": {
+        "confirmationId": "00000000-0000-4000-8000-000000000002",
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "callerTurnId": "00000000-0000-4000-8000-000000000003",
+        "callerTurnSequence": 0,
+        "fieldRevision": 4,
+        "readbackRevision": 4,
+        "readbackPayloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "serverRecordedAt": "2026-09-24T00:00:00Z",
+        "dialogueAct": "affirm",
+        "workflowRevision": 5
+      },
+      "valid": false
+    },
+    {
+      "name": "confirmation invalid serverRecordedAt",
+      "reference": "confirmation.schema.json",
+      "value": {
+        "confirmationId": "00000000-0000-4000-8000-000000000002",
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "callerTurnId": "00000000-0000-4000-8000-000000000003",
+        "callerTurnSequence": 7,
+        "fieldRevision": 4,
+        "readbackRevision": 4,
+        "readbackPayloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "serverRecordedAt": "yesterday",
+        "dialogueAct": "affirm",
+        "workflowRevision": 5
+      },
+      "valid": false
+    },
+    {
+      "name": "confirmation invalid dialogueAct",
+      "reference": "confirmation.schema.json",
+      "value": {
+        "confirmationId": "00000000-0000-4000-8000-000000000002",
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "callerTurnId": "00000000-0000-4000-8000-000000000003",
+        "callerTurnSequence": 7,
+        "fieldRevision": 4,
+        "readbackRevision": 4,
+        "readbackPayloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "serverRecordedAt": "2026-09-24T00:00:00Z",
+        "dialogueAct": "negate",
+        "workflowRevision": 5
+      },
+      "valid": false
+    },
+    {
+      "name": "confirmation invalid callerConfirmed",
+      "reference": "confirmation.schema.json",
+      "value": {
+        "confirmationId": "00000000-0000-4000-8000-000000000002",
+        "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+        "callerTurnId": "00000000-0000-4000-8000-000000000003",
+        "callerTurnSequence": 7,
+        "fieldRevision": 4,
+        "readbackRevision": 4,
+        "readbackPayloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "serverRecordedAt": "2026-09-24T00:00:00Z",
+        "dialogueAct": "affirm",
+        "callerConfirmed": true,
+        "workflowRevision": 5
+      },
+      "valid": false
+    },
+    {
+      "name": "complete request",
+      "reference": "boundary.schema.json#/$defs/completeRequestFields",
+      "value": {
+        "callerName": "Taylor",
+        "contactEmail": "taylor@example.org",
+        "serviceNeed": "Pressure washing",
+        "propertyCity": "Anaheim"
+      },
+      "valid": true
+    },
+    {
+      "name": "missing contact",
+      "reference": "boundary.schema.json#/$defs/completeRequestFields",
+      "value": {
+        "callerName": "Taylor",
+        "serviceNeed": "Pressure washing",
+        "propertyCity": "Anaheim"
+      },
+      "valid": false
+    },
+    {
+      "name": "turn",
+      "reference": "boundary.schema.json#/$defs/turnInput",
+      "value": {
+        "clientTurnId": "00000000-0000-4000-8000-000000000002",
+        "text": "Yes, those details are correct.",
+        "finalized": true,
+        "expectedWorkflowRevision": 1
+      },
+      "valid": true
+    },
+    {
+      "name": "worker cannot supply classification",
+      "reference": "boundary.schema.json#/$defs/turnInput",
+      "value": {
+        "clientTurnId": "00000000-0000-4000-8000-000000000002",
+        "text": "Yes, those details are correct.",
+        "finalized": true,
+        "expectedWorkflowRevision": 1,
+        "dialogueAct": "affirm"
+      },
+      "valid": false
+    },
+    {
+      "name": "turn must be finalized",
+      "reference": "boundary.schema.json#/$defs/turnInput",
+      "value": {
+        "clientTurnId": "00000000-0000-4000-8000-000000000002",
+        "text": "Yes, those details are correct.",
+        "finalized": false,
+        "expectedWorkflowRevision": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "session guard {'status': 'active', 'phase': 'collecting'}",
+      "reference": "boundary.schema.json#/$defs/sessionGuard",
+      "value": {
+        "status": "active",
+        "phase": "collecting"
+      },
+      "valid": true
+    },
+    {
+      "name": "session guard {'status': 'ending', 'phase': 'collecting'}",
+      "reference": "boundary.schema.json#/$defs/sessionGuard",
+      "value": {
+        "status": "ending",
+        "phase": "collecting"
+      },
+      "valid": false
+    },
+    {
+      "name": "session guard {'status': 'active', 'phase': 'terminal'}",
+      "reference": "boundary.schema.json#/$defs/sessionGuard",
+      "value": {
+        "status": "active",
+        "phase": "terminal"
+      },
+      "valid": false
+    },
+    {
+      "name": "session guard {}",
+      "reference": "boundary.schema.json#/$defs/sessionGuard",
+      "value": {},
+      "valid": false
+    },
+    {
+      "name": "session guard {'phase': 'collecting'}",
+      "reference": "boundary.schema.json#/$defs/sessionGuard",
+      "value": {
+        "phase": "collecting"
+      },
+      "valid": false
+    },
+    {
+      "name": "session guard {'status': 'arbitrary', 'phase': 'collecting'}",
+      "reference": "boundary.schema.json#/$defs/sessionGuard",
+      "value": {
+        "status": "arbitrary",
+        "phase": "collecting"
+      },
+      "valid": false
+    },
+    {
+      "name": "preserves browser timer/status compatibility",
+      "reference": "boundary.schema.json#/$defs/sessionResponse",
+      "value": {
+        "demoId": "00000000-0000-4000-8000-000000000001",
+        "state": "active",
+        "stateRevision": 1,
+        "reconnectAllowed": true,
+        "terminalReason": null,
+        "mode": "business_demo",
+        "setupDeadlineAt": "2026-09-24T00:00:20Z",
+        "startedAt": "2026-09-24T00:00:05Z",
+        "softCloseAt": "2026-09-24T00:04:35Z",
+        "hardEndAt": "2026-09-24T00:05:05Z",
+        "appointmentRequest": null,
+        "expiresAt": "2026-09-25T00:00:00Z"
+      },
+      "valid": true
+    },
+    {
+      "name": "rejects missing browser hard deadline",
+      "reference": "boundary.schema.json#/$defs/sessionResponse",
+      "value": {
+        "demoId": "00000000-0000-4000-8000-000000000001",
+        "state": "active",
+        "stateRevision": 1,
+        "reconnectAllowed": true,
+        "terminalReason": null,
+        "mode": "business_demo",
+        "setupDeadlineAt": "2026-09-24T00:00:20Z",
+        "startedAt": "2026-09-24T00:00:05Z",
+        "softCloseAt": "2026-09-24T00:04:35Z",
+        "appointmentRequest": null,
+        "expiresAt": "2026-09-25T00:00:00Z"
+      },
+      "valid": false
+    },
+    {
+      "name": "scoped preclaim result includes all outcome arrays",
+      "reference": "boundary.schema.json#/$defs/demoResultResponse",
+      "value": {
+        "demoId": "00000000-0000-4000-8000-000000000001",
+        "state": "active",
+        "stateRevision": 1,
+        "reconnectAllowed": true,
+        "terminalReason": null,
+        "mode": "business_demo",
+        "setupDeadlineAt": "2026-09-24T00:00:20Z",
+        "startedAt": "2026-09-24T00:00:05Z",
+        "softCloseAt": "2026-09-24T00:04:35Z",
+        "hardEndAt": "2026-09-24T00:05:05Z",
+        "appointmentRequest": null,
+        "expiresAt": "2026-09-25T00:00:00Z",
+        "requests": [],
+        "cases": [],
+        "lookups": [],
+        "receipts": []
+      },
+      "valid": true
+    },
+    {
+      "name": "scoped preclaim result must include outcome arrays",
+      "reference": "boundary.schema.json#/$defs/demoResultResponse",
+      "value": {
+        "demoId": "00000000-0000-4000-8000-000000000001",
+        "state": "active",
+        "stateRevision": 1,
+        "reconnectAllowed": true,
+        "terminalReason": null,
+        "mode": "business_demo",
+        "setupDeadlineAt": "2026-09-24T00:00:20Z",
+        "startedAt": "2026-09-24T00:00:05Z",
+        "softCloseAt": "2026-09-24T00:04:35Z",
+        "hardEndAt": "2026-09-24T00:05:05Z",
+        "appointmentRequest": null,
+        "expiresAt": "2026-09-25T00:00:00Z"
+      },
+      "valid": false
+    },
+    {
+      "name": "website passage still validates",
+      "reference": "source-knowledge.schema.json#/$defs/classifiedPassage",
+      "value": {
+        "passageId": "00000000-0000-4000-8000-000000000031",
+        "source": {
+          "sourceId": "00000000-0000-4000-8000-000000000032",
+          "url": "https://riverside.example/about",
+          "retrievedAt": "2026-09-26T12:00:00.000Z"
+        },
+        "text": "We do not serve Tacoma.",
+        "classifications": [
+          "locations_service_area"
+        ],
+        "classificationModel": "jev-1.13.0"
+      },
+      "valid": true
+    },
+    {
+      "name": "owner passage with owner source, owner model and group other",
+      "reference": "source-knowledge.schema.json#/$defs/classifiedPassage",
+      "value": {
+        "passageId": "00000000-0000-4000-8000-000000000031",
+        "source": {
+          "sourceId": "00000000-0000-4000-8000-000000000033",
+          "sourceType": "owner_text",
+          "label": "Typed by owner",
+          "retrievedAt": "2026-09-26T12:00:00.000Z"
+        },
+        "text": "We do not serve Tacoma.",
+        "classifications": [
+          "other"
+        ],
+        "classificationModel": "owner-attested-v1"
+      },
+      "valid": true
+    },
+    {
+      "name": "unknown classification model",
+      "reference": "source-knowledge.schema.json#/$defs/classifiedPassage",
+      "value": {
+        "passageId": "00000000-0000-4000-8000-000000000031",
+        "source": {
+          "sourceId": "00000000-0000-4000-8000-000000000032",
+          "url": "https://riverside.example/about",
+          "retrievedAt": "2026-09-26T12:00:00.000Z"
+        },
+        "text": "We do not serve Tacoma.",
+        "classifications": [
+          "locations_service_area"
+        ],
+        "classificationModel": "made-up-1"
+      },
+      "valid": false
+    },
+    {
+      "name": "owner source must use https for its url",
+      "reference": "source-knowledge.schema.json#/$defs/classifiedPassage",
+      "value": {
+        "passageId": "00000000-0000-4000-8000-000000000031",
+        "source": {
+          "sourceId": "00000000-0000-4000-8000-000000000033",
+          "sourceType": "owner_text",
+          "label": "Typed by owner",
+          "retrievedAt": "2026-09-26T12:00:00.000Z",
+          "url": "http://owner.example/menu"
+        },
+        "text": "We do not serve Tacoma.",
+        "classifications": [
+          "locations_service_area"
+        ],
+        "classificationModel": "jev-1.13.0"
+      },
+      "valid": false
+    },
+    {
+      "name": "owner source needs a label",
+      "reference": "source-knowledge.schema.json#/$defs/classifiedPassage",
+      "value": {
+        "passageId": "00000000-0000-4000-8000-000000000031",
+        "source": {
+          "sourceId": "00000000-0000-4000-8000-000000000033",
+          "sourceType": "owner_text",
+          "retrievedAt": "2026-09-26T12:00:00.000Z"
+        },
+        "text": "We do not serve Tacoma.",
+        "classifications": [
+          "locations_service_area"
+        ],
+        "classificationModel": "jev-1.13.0"
+      },
+      "valid": false
+    },
+    {
+      "name": "owner source type must be an owner type",
+      "reference": "source-knowledge.schema.json#/$defs/classifiedPassage",
+      "value": {
+        "passageId": "00000000-0000-4000-8000-000000000031",
+        "source": {
+          "sourceId": "00000000-0000-4000-8000-000000000033",
+          "sourceType": "website",
+          "label": "Typed by owner",
+          "retrievedAt": "2026-09-26T12:00:00.000Z"
+        },
+        "text": "We do not serve Tacoma.",
+        "classifications": [
+          "locations_service_area"
+        ],
+        "classificationModel": "jev-1.13.0"
+      },
+      "valid": false
+    },
+    {
+      "name": "unknown fact group",
+      "reference": "source-knowledge.schema.json#/$defs/classifiedPassage",
+      "value": {
+        "passageId": "00000000-0000-4000-8000-000000000031",
+        "source": {
+          "sourceId": "00000000-0000-4000-8000-000000000032",
+          "url": "https://riverside.example/about",
+          "retrievedAt": "2026-09-26T12:00:00.000Z"
+        },
+        "text": "We do not serve Tacoma.",
+        "classifications": [
+          "made_up"
+        ],
+        "classificationModel": "jev-1.13.0"
+      },
+      "valid": false
+    },
+    {
+      "name": "source erasure job pending",
+      "reference": "post-onboarding.schema.json#/$defs/sourceErasureJob",
+      "value": {
+        "jobId": "00000000-0000-4000-8000-000000000041",
+        "sourceId": "00000000-0000-4000-8000-000000000042",
+        "sourceType": "owner_form",
+        "status": "pending",
+        "requestedAt": "2026-09-29T12:00:00.000Z",
+        "updatedAt": "2026-09-29T12:00:00.000Z",
+        "completedAt": null,
+        "failureCode": null,
+        "retryable": false,
+        "versionsAffected": 1,
+        "linksRevoked": 2,
+        "remainingKnowledge": null,
+        "backups": "expire_separately"
+      },
+      "valid": true
+    },
+    {
+      "name": "source erasure job failed can retry",
+      "reference": "post-onboarding.schema.json#/$defs/sourceErasureJob",
+      "value": {
+        "jobId": "00000000-0000-4000-8000-000000000041",
+        "sourceId": "00000000-0000-4000-8000-000000000042",
+        "sourceType": "owner_form",
+        "status": "failed",
+        "requestedAt": "2026-09-29T12:00:00.000Z",
+        "updatedAt": "2026-09-29T12:00:00.000Z",
+        "completedAt": null,
+        "failureCode": "store_cleanup_failed",
+        "retryable": true,
+        "versionsAffected": 1,
+        "linksRevoked": 2,
+        "remainingKnowledge": null,
+        "backups": "expire_separately"
+      },
+      "valid": true
+    },
+    {
+      "name": "source erasure job carries no content field",
+      "reference": "post-onboarding.schema.json#/$defs/sourceErasureJob",
+      "value": {
+        "jobId": "00000000-0000-4000-8000-000000000041",
+        "sourceId": "00000000-0000-4000-8000-000000000042",
+        "sourceType": "owner_form",
+        "status": "pending",
+        "requestedAt": "2026-09-29T12:00:00.000Z",
+        "updatedAt": "2026-09-29T12:00:00.000Z",
+        "completedAt": null,
+        "failureCode": null,
+        "retryable": false,
+        "versionsAffected": 1,
+        "linksRevoked": 2,
+        "remainingKnowledge": null,
+        "backups": "expire_separately",
+        "excerpt": "text"
+      },
+      "valid": false
+    },
+    {
+      "name": "source erasure job status is one of three",
+      "reference": "post-onboarding.schema.json#/$defs/sourceErasureJob",
+      "value": {
+        "jobId": "00000000-0000-4000-8000-000000000041",
+        "sourceId": "00000000-0000-4000-8000-000000000042",
+        "sourceType": "owner_form",
+        "status": "running",
+        "requestedAt": "2026-09-29T12:00:00.000Z",
+        "updatedAt": "2026-09-29T12:00:00.000Z",
+        "completedAt": null,
+        "failureCode": null,
+        "retryable": false,
+        "versionsAffected": 1,
+        "linksRevoked": 2,
+        "remainingKnowledge": null,
+        "backups": "expire_separately"
+      },
+      "valid": false
+    },
+    {
+      "name": "source erasure needs explicit confirmation",
+      "reference": "post-onboarding.schema.json#/$defs/sourceErasureInput",
+      "value": {
+        "confirm": true,
+        "expectedPointerGeneration": 2
+      },
+      "valid": true
+    },
+    {
+      "name": "source erasure confirm must be true",
+      "reference": "post-onboarding.schema.json#/$defs/sourceErasureInput",
+      "value": {
+        "confirm": false,
+        "expectedPointerGeneration": 2
+      },
+      "valid": false
+    },
+    {
+      "name": "source erasure needs a pointer generation",
+      "reference": "post-onboarding.schema.json#/$defs/sourceErasureInput",
+      "value": {
+        "confirm": true
+      },
+      "valid": false
+    }
+  ],
+  "confirmation": {
+    "binding": {
+      "confirmationId": "00000000-0000-4000-8000-000000000002",
+      "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+      "callerTurnId": "00000000-0000-4000-8000-000000000003",
+      "callerTurnSequence": 7,
+      "fieldRevision": 4,
+      "readbackRevision": 4,
+      "readbackPayloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "serverRecordedAt": "2026-09-24T00:00:00Z",
+      "dialogueAct": "affirm",
+      "workflowRevision": 5
+    },
+    "current": {
+      "workflowInstanceId": "00000000-0000-4000-8000-000000000001",
+      "latestCallerTurnId": "00000000-0000-4000-8000-000000000003",
+      "latestCallerTurnSequence": 7,
+      "fieldRevision": 4,
+      "readbackRevision": 4,
+      "readbackPayloadHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "latestCallerDialogueAct": "affirm",
+      "latestCallerClassificationStatus": "classified",
+      "readbackAfterCallerTurnSequence": 6
+    }
+  }
+}

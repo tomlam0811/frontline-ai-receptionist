@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://frontline.local/contracts/v1/task.schema.json",
+  "$defs": {
+    "command": { "oneOf": [
+      { "$ref": "task.schema.json#/$defs/startInput" },
+      { "$ref": "task.schema.json#/$defs/recordInput" },
+      { "$ref": "task.schema.json#/$defs/finishInput" },
+      { "$ref": "task.schema.json#/$defs/cancelInput" }
+    ] },
+    "startInput": {
+      "type": "object", "additionalProperties": false,
+      "required": ["action", "taskId", "kind", "callerTurnId", "goal"],
+      "properties": {
+        "action": { "const": "start" }, "taskId": { "type": "string", "format": "uuid" },
+        "kind": { "enum": ["service_request", "appointment_lookup", "complaint"] },
+        "callerTurnId": { "type": "string", "format": "uuid" },
+        "expectedWorkflowRevision": { "type": "integer", "minimum": 1 },
+        "goal": { "type": "string", "minLength": 1, "maxLength": 1000 }
+      }
+    },
+    "recordInput": {
+      "type": "object", "additionalProperties": false,
+      "required": ["action", "taskId", "operationId", "callerTurnId", "fields"],
+      "properties": {
+        "action": { "const": "record" }, "taskId": { "type": "string", "format": "uuid" },
+        "operationId": { "type": "string", "format": "uuid" },
+        "callerTurnId": { "type": "string", "format": "uuid" },
+        "expectedWorkflowRevision": { "type": "integer", "minimum": 1 },
+        "fields": { "$ref": "task.schema.json#/$defs/recordFieldsInput" }
+      }
+    },
+    "recordFieldsInput": {
+      "type": "object",
+      "description": "Partial callerName, contactPhone, contactEmail, serviceNeed, propertyCity, propertyState, cityConfirmed (boolean), phoneConfirmed (boolean, the caller confirmed the number read back to them), phoneAsGiven (boolean, keep a ten-digit number the caller repeated even though it fails the US pattern check), summary, appointmentAction (cancel or reschedule), noContact (boolean). Each field is validated on its own; a bad or unknown field is listed in rejected and never fails the others. At most 20 keys."
+    },
+    "finishInput": {
+      "type": "object", "additionalProperties": false,
+      "required": ["action", "taskId", "operationId", "callerTurnId"],
+      "properties": {
+        "action": { "const": "finish" }, "taskId": { "type": "string", "format": "uuid" },
+        "operationId": { "type": "string", "format": "uuid" },
+        "callerTurnId": { "type": "string", "format": "uuid" },
+        "expectedWorkflowRevision": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "cancelInput": {
+      "type": "object", "additionalProperties": false,
+      "required": ["action", "taskId", "operationId", "callerTurnId"],
+      "properties": {
+        "action": { "const": "cancel" }, "taskId": { "type": "string", "format": "uuid" },
+        "operationId": { "type": "string", "format": "uuid" },
+        "callerTurnId": { "type": "string", "format": "uuid" },
+        "expectedWorkflowRevision": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "endInput": {
+      "type": "object", "additionalProperties": false,
+      "required": ["callerTurnId", "expectedStateRevision", "expectedWorkflowRevision", "reason"],
+      "properties": {
+        "callerTurnId": { "type": "string", "format": "uuid" },
+        "expectedStateRevision": { "type": "integer", "minimum": 1 },
+        "expectedWorkflowRevision": { "type": "integer", "minimum": 1 },
+        "reason": { "enum": ["human_preference", "blocking_unknown", "urgency", "safety_emergency", "caller_ended"] }
+      }
+    },
+    "evidenceTurn": {
+      "type": "object", "additionalProperties": false, "required": ["callerTurnId", "text"],
+      "properties": { "callerTurnId": { "type": "string", "format": "uuid" }, "sequence": { "type": "integer", "minimum": 1 }, "text": { "type": "string", "minLength": 1, "maxLength": 8000 } }
+    },
+    "task": {
+      "type": "object", "additionalProperties": false,
+      "required": ["taskId", "kind", "status", "callerTurnId", "originTurnId", "sessionId", "agentVersionId", "knowledgeRevisionId", "goal", "fields", "missingFields", "evidenceTurns", "receipt", "lookup", "noteRecordId", "lastOperationId"],
+      "properties": {
+        "taskId": { "type": "string", "format": "uuid" },
+        "kind": { "enum": ["service_request", "appointment_lookup", "complaint"] },
+        "status": { "enum": ["running", "succeeded", "stopped", "failed"] },
+        "callerTurnId": { "type": "string", "format": "uuid" },
+        "originTurnId": { "type": "string", "format": "uuid" },
+        "sessionId": { "type": "string", "format": "uuid" },
+        "agentVersionId": { "type": "string", "format": "uuid" },
+        "knowledgeRevisionId": { "type": "string", "format": "uuid" },
+        "goal": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "fields": { "$ref": "boundary.schema.json#/$defs/recordFields" },
+        "missingFields": { "type": "array", "items": { "type": "string", "maxLength": 100 }, "maxItems": 20 },
+        "evidenceTurns": { "type": "array", "items": { "$ref": "task.schema.json#/$defs/evidenceTurn" }, "minItems": 1, "maxItems": 100 },
+        "receipt": { "anyOf": [{ "$ref": "receipt.schema.json" }, { "type": "null" }] },
+        "lookup": { "anyOf": [{ "$ref": "appointment-lookup.schema.json" }, { "type": "null" }] },
+        "noteRecordId": { "anyOf": [{ "type": "string", "format": "uuid" }, { "type": "null" }] },
+        "lastOperationId": { "type": ["string", "null"] }
+      }
+    },
+    "response": {
+      "type": "object", "additionalProperties": false,
+      "required": ["task", "workflowRevision"],
+      "properties": {
+        "task": { "$ref": "task.schema.json#/$defs/task" }, "workflowRevision": { "type": "integer", "minimum": 1 },
+        "accepted": { "type": "object", "description": "record only: each accepted field and its normalized stored value." },
+        "rejected": { "type": "object", "additionalProperties": { "type": "string", "maxLength": 200 }, "description": "record only: each rejected field and a plain reason." }
+      }
+    }
+  }
+}

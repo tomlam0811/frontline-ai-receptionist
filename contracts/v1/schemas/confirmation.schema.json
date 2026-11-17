@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://frontline.local/contracts/v1/confirmation.schema.json",
+  "title": "Server-recorded caller confirmation binding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "confirmationId",
+    "workflowInstanceId",
+    "callerTurnId",
+    "callerTurnSequence",
+    "fieldRevision",
+    "readbackRevision",
+    "readbackPayloadHash",
+    "serverRecordedAt",
+    "dialogueAct",
+    "workflowRevision"
+  ],
+  "properties": {
+    "confirmationId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "workflowInstanceId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "callerTurnId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "callerTurnSequence": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "fieldRevision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "readbackRevision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "readbackPayloadHash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "serverRecordedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "dialogueAct": {
+      "const": "affirm"
+    },
+    "workflowRevision": {
+      "type": "integer",
+      "minimum": 1
+    }
+  }
+}
