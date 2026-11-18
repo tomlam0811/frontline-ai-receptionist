@@ -2,6 +2,8 @@
 
 Frontline is an AI voice receptionist for appointment-based local service businesses (HVAC, cleaning, power washing and similar trades). A business owner enters their website. Frontline reads the site, builds a profile of the business's services, hours, service area and policies, and then lets the owner talk to a receptionist that answers callers' questions from that profile and takes down service requests.
 
+URL: frontline-smb.vercel.app
+
 ## How it works
 
 1. **Website research.** The API crawls the business's site with Exa search, splits pages into passages, and uses an OpenAI model to extract structured facts (services, hours, contact details, service area). Every fact keeps a link to the passage it came from, so the receptionist only states what the website supports.
